@@ -1,5 +1,6 @@
 import React from 'react';
 import './plugin-list.css';
+import Spinner from '../spinner/Spinner';
 
 class PluginList extends React.Component {
 
@@ -30,9 +31,7 @@ class PluginList extends React.Component {
                         :
                         <div className="flex-container fill-height justify-center center margin">
                             <div className="xs12 margin">
-                                <div className="primary dark turntable">
-                                    <i className="fas fa-compact-disc fa-spin disc margin"></i>
-                                </div>
+                                <Spinner/>
                             </div>
                         </div>
                 }
