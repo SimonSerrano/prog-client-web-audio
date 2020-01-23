@@ -91,7 +91,7 @@ span.primary.light {
   align-items: center;
 }
 
-.flex-direction.column {
+.flex-container.column {
   flex-direction: column;
 }
 
@@ -150,5 +150,37 @@ span.primary.light {
 
 .col.xs1 {
   max-width: calc((100%/12)*1);
+}
+
+.btn {
+  cursor: pointer;
+  letter-spacing: .8px;
+  padding: 0 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+  outline: none;
+  border: none;
+  user-select: none;
+  border-radius: 2px;
+  transition: all .3s ease-out;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.225);
+  height: 35px;
+  line-height: 35px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+}
+
+.btn.flat {
+  background-color: transparent;
+  box-shadow: none!important;
+}
+
+.primary > .btn.flat:hover {
+  background-color: #ffbfff!important;
+  box-shadow: none!important;
 }
 

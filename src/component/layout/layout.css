@@ -3,4 +3,6 @@
     display: -moz-grid;
     grid-template-columns: 1fr 3fr 1fr;
     grid-template-rows: 1fr 9fr;
+    width: 100%;
+    height: 100%;
 }
