@@ -8,19 +8,19 @@ class Navbar extends React.Component {
         return (
             <div className="navbar primary dark flex-container space-between nowrap center">
 
-                <div className='grow col xs6 margin'>
+                <div className='grow xs6 margin'>
                     <span className='primary light'>
-                        <i className="fas fa-bars"></i>
+                        <i className="fas fa-bars big"></i>
                     </span>
                 </div>
-                <div className='grow col xs6'>
-                    <div className='flex-container center nowrap'>
-                        <div className='col grow xs6'>
+                <div className='grow col xs6 margin'>
+                    <div className='flex-container justify-right center nowrap'>
+                        <div className='grow xs6'>
                             <p>Michou</p>
                         </div>
-                        <div className='col grow xs6'>
+                        <div className='grow xs6 margin'>
                             <span className='primary light'>
-                                <i className="fas fa-user-circle"></i>
+                                <i className="fas fa-user-circle big"></i>
                             </span>
                         </div>
                     </div>

@@ -79,8 +79,24 @@ span.primary.light {
   display: -webkit-flex; 
 }
 
+.flex-container.fill-height {
+  height: 100%;
+}
+
 .flex-container.space-between {
   justify-content: space-between;
+}
+
+.flex-container.justify-right {
+  justify-content: flex-end;
+}
+
+.flex-container.space-evenly {
+  justify-content: space-evenly;
+}
+
+.flex-container.justify-center {
+  justify-content: center;
 }
 
 .flex-container.nowrap {
@@ -89,6 +105,10 @@ span.primary.light {
 
 .flex-container.center {
   align-items: center;
+}
+
+.flex-container.align-start {
+  align-items: flex-start;
 }
 
 .flex-container.column {
@@ -103,6 +123,9 @@ span.primary.light {
   flex-shrink: 0;
 }
 
+.col {
+  width: 100%;
+}
 
 .col.xs12{
   max-width: 100%;
@@ -150,6 +173,10 @@ span.primary.light {
 
 .col.xs1 {
   max-width: calc((100%/12)*1);
+}
+
+i.humongus {
+  font-size: xx-large;
 }
 
 .btn {
