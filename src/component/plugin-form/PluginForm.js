@@ -2,6 +2,7 @@ import React from 'react';
 import '../../styles/buttons.css';
 import '../../styles/inputs.css';
 import './plugin-form.css';
+import PluginsService from '../../utils/PluginsService';
 
 class PluginForm extends React.Component {
 
@@ -87,7 +88,13 @@ class PluginForm extends React.Component {
             return;
         }
         // TODO send data to backend
-        this.setState({name:'', version:'', description:'', error:''});
+        const service = new PluginsService();
+        service.postPlugin(this.state).then(res => {
+            this.setState({name:'', version:'', description:'', error:''});
+        }).catch(err => {
+            console.log(err);
+        });
+        
     }
 }
 
