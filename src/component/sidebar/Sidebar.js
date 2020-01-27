@@ -1,5 +1,6 @@
 import React from 'react';
 import './sidebar.css';
+import '../../styles/buttons.css';
 import SidebarContext from '../context/SidebarContext';
 
 class Sidebar extends React.Component {

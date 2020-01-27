@@ -1,55 +1,23 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+:root {
+  --primary: #f98dff;
+  --primary-dark: #c45ccb;
+  --primary-light: #ffbfff;
 }
 
 .primary {
-  background-color: #f98dff;
-  border-color: #f98dff;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 .primary.light {
-  background-color: #ffbfff;
-  border-color: #ffbfff;
+  background-color: var(--primary-light);
+  border-color: var(--primary-light);
 }
 
 .primary.dark {
-  background-color: #c45ccb;
-  border-color: #c45ccb;
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
 }
 
 .margin {
@@ -59,19 +27,19 @@
 span.primary {
   background-color: initial;
   border-color: initial;
-  color: #f98dff
+  color: var(--primary)
 }
 
 span.primary.dark {
   background-color: initial;
   border-color: initial;
-  color: #c45ccb;
+  color: var(--primary-dark);
 }
 
 span.primary.light {
   background-color: initial;
   border-color: initial;
-  color: #ffbfff;
+  color: var(--primary-light);
 }
 
 .flex-container {
@@ -109,6 +77,10 @@ span.primary.light {
 
 .flex-container.align-start {
   align-items: flex-start;
+}
+
+.flex-container.align-center {
+  align-items: center;
 }
 
 .flex-container.column {
@@ -179,35 +151,5 @@ i.humongus {
   font-size: xx-large;
 }
 
-.btn {
-  cursor: pointer;
-  letter-spacing: .8px;
-  padding: 0 1.5rem;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  vertical-align: middle;
-  white-space: nowrap;
-  outline: none;
-  border: none;
-  user-select: none;
-  border-radius: 2px;
-  transition: all .3s ease-out;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.225);
-  height: 35px;
-  line-height: 35px;
-  font-size: 15px;
-  font-weight: 600;
-  font-family: 'Roboto', sans-serif;
-}
 
-.btn.flat {
-  background-color: transparent;
-  box-shadow: none!important;
-}
-
-.primary > .btn.flat:hover {
-  background-color: #ffbfff!important;
-  box-shadow: none!important;
-}
 

@@ -1,6 +1,7 @@
 .sidebar {
     grid-column: 1/2;
     grid-row: 2/3;
+    z-index: 9999;
 }
 
 .sidebar.open {
