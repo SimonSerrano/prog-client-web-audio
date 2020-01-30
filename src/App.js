@@ -10,6 +10,7 @@ import SidebarContext from './component/context/SidebarContext';
 import PluginForm from './component/plugin-form/PluginForm';
 import PluginView from './component/plugin-view/PluginView';
 
+
 class App extends React.Component {
 
   constructor(props) {
@@ -37,6 +38,9 @@ class App extends React.Component {
         </SidebarContext.Provider>
         <Content>
           <PluginView></PluginView>
+          <PluginList></PluginList>
+          {
+  }
         </Content>
       </Layout>
     );
