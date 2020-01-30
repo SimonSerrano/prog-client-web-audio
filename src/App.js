@@ -7,7 +7,7 @@ import Sidebar from './component/sidebar/Sidebar';
 import Content from './component/content/Content';
 import PluginList from './component/plugin-list/PluginList';
 import SidebarContext from './component/context/SidebarContext';
-import PluginForm from './component/plugin-form/PluginForm';
+//import PluginForm from './component/plugin-form/PluginForm';
 
 class App extends React.Component {
 
@@ -35,7 +35,9 @@ class App extends React.Component {
           <Sidebar></Sidebar>
         </SidebarContext.Provider>
         <Content>
-          <PluginForm></PluginForm>
+          <PluginList></PluginList>
+          {//<PluginForm></PluginForm>
+  }
         </Content>
       </Layout>
     );

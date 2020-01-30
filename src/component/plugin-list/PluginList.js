@@ -1,13 +1,19 @@
 import React from 'react';
 import './plugin-list.css';
 import Spinner from '../spinner/Spinner';
+import PluginCard from '../plugin-card/PluginCard';
 
 class PluginList extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: undefined,
+            data: [{title: "Titre de plugin", type:"CEci est un type", review: 3},
+            {title: "Titre de plugin 2", type:"Ceci est un type", review: 3},
+            {title: "Titre de plugin 3", type:"Ceci est un type", review: 4},
+            {title: "Titre de plugin 4", type:"Ceci est un type", review: 2},
+            {title: "Titre de plugin 5", type:"Ceci est un type", review: 3},
+            {title: "Titre de plugin 6", type:"Ceci est un type", review: 1}]
         }
     }
 
@@ -17,9 +23,9 @@ class PluginList extends React.Component {
             <>
                 {
                     this.state.data ? this.state.data.length ?
-                        <div className="flex-container align-start space-evenly">
+                        <div className="flex-container align-start wrap">
                             {this.state.data.map((plugin, index) => {
-                                return (<p></p>);
+                                return (<PluginCard plugin={plugin}></PluginCard>);
                             })}
                         </div>
                         :
