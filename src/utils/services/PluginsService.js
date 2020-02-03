@@ -1,4 +1,4 @@
-import {API, PLUGINS_ROUTE} from '../constants/constant';
+import {API, PLUGINS_ROUTE} from '../../constants/constant';
 
 class PluginsService {
 

@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/buttons.css';
 import '../../styles/inputs.css';
 import './plugin-form.css';
-import PluginsService from '../../utils/PluginsService';
+import PluginsService from '../../utils/services/PluginsService';
 
 class PluginForm extends React.Component {
 

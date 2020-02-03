@@ -1,7 +1,7 @@
 import React from 'react';
 import './sidebar.css';
 import '../../styles/buttons.css';
-import SidebarContext from '../context/SidebarContext';
+import SidebarContext from '../../context/SidebarContext';
 import RouteContext from '../../context/RouteContext';
 import { ADD_PLUGIN, HOME } from '../../constants/routes';
 
