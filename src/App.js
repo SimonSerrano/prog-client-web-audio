@@ -9,6 +9,8 @@ import PluginList from './component/plugin-list/PluginList';
 import SidebarContext from './component/context/SidebarContext';
 import PluginForm from './component/plugin-form/PluginForm';
 import PluginView from './component/plugin-view/PluginView';
+import RouteContext from './context/RouteContext';
+import { HOME, ADD_PLUGIN } from './constants/routes';
 
 
 class App extends React.Component {
@@ -37,10 +39,19 @@ class App extends React.Component {
           <Sidebar></Sidebar>
         </SidebarContext.Provider>
         <Content>
-          <PluginView></PluginView>
-          <PluginList></PluginList>
-          {
-  }
+          <RouteContext.Consumer>
+            {
+              ({route, toggleRoute}) => {
+                if(route === HOME) {
+                  return (<PluginList></PluginList>);
+                }else if(route === ADD_PLUGIN) {
+                  return (<PluginForm></PluginForm>);
+                }else {
+                  toggleRoute(HOME);
+                }
+              }
+            }
+          </RouteContext.Consumer>
         </Content>
       </Layout>
     );

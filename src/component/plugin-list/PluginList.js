@@ -25,7 +25,7 @@ class PluginList extends React.Component {
                     this.state.data ? this.state.data.length ?
                         <div className="flex-container align-start wrap">
                             {this.state.data.map((plugin, index) => {
-                                return (<PluginCard plugin={plugin}></PluginCard>);
+                                return (<PluginCard key={index} plugin={plugin}></PluginCard>);
                             })}
                         </div>
                         :
