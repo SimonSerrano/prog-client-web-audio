@@ -41,9 +41,13 @@ class App extends React.Component {
         <Content>
           <RouteContext.Consumer>
             {
-              ({route, toggleRoute}) => {
+              ({route, plugin, toggleRoute}) => {
                 if(route === HOME) {
-                  return (<PluginList></PluginList>);
+                  if(plugin) {
+                    return (<PluginView></PluginView>)
+                  }else {
+                    return (<PluginList></PluginList>);
+                  }
                 }else if(route === ADD_PLUGIN) {
                   return (<PluginForm></PluginForm>);
                 }else {

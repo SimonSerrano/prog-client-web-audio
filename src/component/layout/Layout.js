@@ -9,8 +9,10 @@ class Layout extends React.Component {
         super(props);
         this.state = {
             route: 'home',
-            toggleRoute: (route) => {
-                this.setState({route: route});
+            plugin: undefined,
+            toggleRoute: (route, plugin) => {
+                const path = route?route: this.state.route;
+                this.setState({route: path, plugin: plugin});
             }
         }
     }
