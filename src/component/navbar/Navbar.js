@@ -1,6 +1,6 @@
 import React from 'react';
 import './navbar.css';
-import SidebarContext from '../context/SidebarContext';
+import SidebarContext from '../../context/SidebarContext';
 
 class Navbar extends React.Component {
 

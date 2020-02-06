@@ -6,9 +6,11 @@ import Navbar from './component/navbar/Navbar';
 import Sidebar from './component/sidebar/Sidebar';
 import Content from './component/content/Content';
 import PluginList from './component/plugin-list/PluginList';
-import SidebarContext from './component/context/SidebarContext';
-//import PluginForm from './component/plugin-form/PluginForm';
-//import PluginView from './component/plugin-view/PluginView';
+import SidebarContext from './context/SidebarContext';
+import PluginForm from './component/plugin-form/PluginForm';
+import PluginView from './component/plugin-view/PluginView';
+import RouteContext from './context/RouteContext';
+import { HOME, ADD_PLUGIN } from './constants/routes';
 
 
 class App extends React.Component {
@@ -37,9 +39,23 @@ class App extends React.Component {
           <Sidebar></Sidebar>
         </SidebarContext.Provider>
         <Content>
-          <PluginList></PluginList>
-          {
-  }
+          <RouteContext.Consumer>
+            {
+              ({route, plugin, toggleRoute}) => {
+                if(route === HOME) {
+                  if(plugin) {
+                    return (<PluginView></PluginView>)
+                  }else {
+                    return (<PluginList></PluginList>);
+                  }
+                }else if(route === ADD_PLUGIN) {
+                  return (<PluginForm></PluginForm>);
+                }else {
+                  toggleRoute(HOME);
+                }
+              }
+            }
+          </RouteContext.Consumer>
         </Content>
       </Layout>
     );
