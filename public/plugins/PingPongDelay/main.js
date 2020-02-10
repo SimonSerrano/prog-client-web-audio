@@ -3,7 +3,7 @@
 /* ES6 web audio class following the API standard
 * Author : Guillaume Etevenard
 */
-window.PingPongDelay = class PingPongDelay extends WebAudioPluginCompositeNode {
+window.PingPongDelay = class PingPongDelay extends window.WebAudioPluginCompositeNode {
 
   constructor(ctx,URL ,options) {
     /*    ################     API PROPERTIES    ###############   */
