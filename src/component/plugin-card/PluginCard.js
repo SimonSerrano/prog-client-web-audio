@@ -3,6 +3,10 @@ import './plugin-card.css';
 import RouteContext from '../../context/RouteContext';
 
 class PluginCard extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log(this.props);
+    }
 
     render() {
         return (
@@ -12,13 +16,10 @@ class PluginCard extends React.Component {
                         return (<div className='lg4 flex-container wrap' >
                         <div className='flex-container column plugin '>
                             <div className='title'>
-                                {this.props.plugin.title}
+                                {this.props.plugin.name}
                             </div>
                             <div className='type'>
-                                {this.props.plugin.type}
-                            </div>
-                            <div className='review'>
-                                {this.props.plugin.review}
+                                {this.props.plugin.version}
                             </div>
                             <div className='img'>
                                 <img alt="plugins' icon" src={"logo192.png"} />

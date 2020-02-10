@@ -12,7 +12,7 @@
     padding:1vh 2vw 0 2vw;
 }
 .type::before{
-    content: 'Type : ';
+    content: 'Version : ';
     color: var(--primary);
 }
 .img {
