@@ -35,6 +35,15 @@ class PluginsService {
        
         return fetch(request).then( res =>{ return res.json()});
     }
+
+    deletePlugin(pluginId) {
+        const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });
+        const request = new Request(API + PLUGINS_ROUTE + "/" + pluginId, {
+            method: 'DELETE',
+            headers: headers
+        });
+        return fetch(request);
+    }
 }
 
 
