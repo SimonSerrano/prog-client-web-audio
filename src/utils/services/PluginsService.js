@@ -12,6 +12,17 @@ class PluginsService {
         });
         return fetch(request);
     }
+
+    getPluginMetadata(baseUrl) {
+        fetch(`${baseUrl}/main.json`)
+            .then(response => {
+                return response.json();
+            })
+            .catch(err => {
+                console.log(err);
+                return err;
+            });
+    }
 }
 
 

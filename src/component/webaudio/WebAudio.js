@@ -1,5 +1,6 @@
 import React from 'react';
 import ScriptLoader from '../../utils/loader/ScriptLoader';
+import Spinner from '../spinner/Spinner';
 
 
 
@@ -21,61 +22,76 @@ class WebAudio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            error: null,
             source: null,
             audioContext: new (window.AudioContext || window.webkitAudioContext)(),
             oscillator: null,
             isStarted: false,
             plugin: null
         }
-        document.addEventListener('keydown', (e) => {
-            if (this.emulatedKeys.hasOwnProperty(e.key)) {
-                this._noteOn(this.emulatedKeys[e.key]);
-            }
-        });
-        document.addEventListener('keyup', (e) => {
-            if (this.emulatedKeys.hasOwnProperty(e.key)) {
-                this._noteOff();
-            }
-        })
-
-        const loader = new ScriptLoader([
-            { url: `https://combinatronics.com/micbuffa/WebAudioPlugins/master/sdk/WebAudioSDK.js`, onLoad: null },
-            { url: `https://combinatronics.com/micbuffa/WebAudioPlugins/master/plugins/PureJS/PingPongDelay/main.js`, onLoad: this._instantiate.bind(this) },
-        ]);
-        loader.load();
+        
     }
 
     render() {
         return (
-            <>
-                <div className="btn" onClick={(e) => this._onPlay()}>Essayer
-                </div>
+            <div className="flex-container column">
+                {
+                    this.renderButton()
+                }
                 <div id='WAP'>
 
                 </div>
-            </>
+            </div>
         );
     }
 
-    _instantiate() {
-        fetch("https://combinatronics.com/micbuffa/WebAudioPlugins/master/plugins/PureJS/PingPongDelay/main.json")
-            .then(response => {
-                return response.json();
-            })
-            .then(metadata => {
-                console.log(metadata);
-                const className = metadata.vendor + metadata.name;
-                this.setState((state, props) => ({
-                    plugin: new window[className](state.audioContext, "https://combinatronics.com/micbuffa/WebAudioPlugins/master/plugins/PureJS/PingPongDelay/")
-                }));
-            });
+    renderButton() {
+        if (this.state.error) {
+            return (
+                <>
+                    <div className="btn disabled" onClick={(e) => this._onPlay()}>Essayer
+                    </div>
+                    <div>{this.state.error.message}</div>
+                </>
+            );
+        }
+        else if (this.state.plugin) {
+            return (<div className="btn" onClick={(e) => this._onPlay()}>Essayer
+            </div>);
+        } else {
+            return (
+                <Spinner></Spinner>
+            );
+        }
+    }
+
+    async componentDidMount() {
+        const scriptLoader = new ScriptLoader();
+        try {
+            await scriptLoader.loadSDK()
+            const plugin = await scriptLoader
+                .loadPlugin(this.state.audioContext, "https://combinatronics.com/micbuffa/WebAudioPlugins/master/plugins/PureJS/PingPongDelay");
+            if (plugin) {
+                this.setState({ plugin: plugin });
+            }
+        } catch (err) {
+            console.log(err);
+            this.setState({ error: err });
+        }
     }
 
     async _onPlay() {
-        console.log(this.state.plugin);
         if (navigator.requestMIDIAccess) {
             console.log("Midi working");
-            navigator.requestMIDIAccess().then(res => this._onMidiAccess(res)).catch(err => console.log(err));
+            try {
+                const midiAccess = await navigator.requestMIDIAccess();
+                if (midiAccess) {
+                    this._onMidiAccess(midiAccess);
+                }
+            } catch (err) {
+                console.log(err);
+                this.setState({ error: err });
+            }
         }
         else {
             navigator.getUserMedia({ audio: true }, this._onUserMedia.bind(this), (err) => console.log(err));
@@ -94,20 +110,38 @@ class WebAudio extends React.Component {
         compressor.connect(this.state.audioContext.destination);
     }
 
-    _onMidiAccess(res) {
+    async _onMidiAccess(res) {
         if (!this.state.oscillator) {
             const oscillator = this.state.audioContext.createOscillator();
             this.setState({ oscillator: oscillator });
         }
-        this.state.plugin.load().then(async node => {
-            const el = await this.state.plugin.loadGui();
-            document.querySelectorAll('#WAP')[0].appendChild(el);
-            this.state.oscillator.connect(node);
-            node.connect(this.state.audioContext.destination);
-        });
-        for (const input of res.inputs.values()) {
-            input.onmidimessage = this._onMidiMessage.bind(this);
+        try{
+            const node = await this.state.plugin.load();
+            if(node) {
+                this.state.audioContext.source.connect(this.state.oscillator);
+                this.state.oscillator.connect(node);
+                node.connect(this.state.audioContext.destination);
+                const el = await this.state.plugin.loadGui();
+                document.querySelectorAll('#WAP')[0].appendChild(el);
+                for (const input of res.inputs.values()) {
+                    input.onmidimessage = this._onMidiMessage.bind(this);
+                }
+                document.addEventListener('keydown', (e) => {
+                    if (this.emulatedKeys.hasOwnProperty(e.key)) {
+                        this._noteOn(this.emulatedKeys[e.key]);
+                    }
+                });
+                document.addEventListener('keyup', (e) => {
+                    if (this.emulatedKeys.hasOwnProperty(e.key)) {
+                        this._noteOff();
+                    }
+                });
+            }
+        }catch (err) {
+            console.log(err);
+            this.setState({error: err});
         }
+        
     }
 
     _onMidiMessage(message) {
@@ -136,19 +170,6 @@ class WebAudio extends React.Component {
         this.state.audioContext.suspend();
     }
 
-}
-
-WebAudio.defaultProps = {
-    emulatedKeys: {
-        a: 60,
-        z: 62,
-        e: 64,
-        r: 65,
-        t: 67,
-        y: 69,
-        u: 71,
-        i: 72,
-    }
 }
 
 export default WebAudio;
