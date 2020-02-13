@@ -1,3 +1,42 @@
-.plugin.image {
-    max-height: 40vh;
+
+.plugin{
+    background-color: white;
+
+}
+.plugin>.title{
+    padding:2vh 2vw;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+.type{
+    padding:1vh 2vw 0 2vw;
+}
+.type::before{
+    content: 'Version : ';
+    color: var(--primary);
+}
+.img {
+    width:100%;
+    border-bottom: 1px solid #DDD;
+}
+img{
+    max-height: 25vh;
+
+}
+.review{
+    padding:1vh 2vw 2vh 2vw;
+    border-bottom: 1px solid #DDD;
+
+}
+.review::before{
+    content: 'Commentaires : ';
+    color: var(--primary);
+}
+.foot{
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 2vh;
+}
+.wrap{
+    margin: 4vh 0 0 1vw;
 }
