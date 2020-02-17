@@ -29,7 +29,7 @@ class WebAudio extends React.Component {
             isStarted: false,
             plugin: null
         }
-        
+
     }
 
     render() {
@@ -70,7 +70,7 @@ class WebAudio extends React.Component {
         try {
             await scriptLoader.loadSDK()
             const plugin = await scriptLoader
-                .loadPlugin(this.state.audioContext, "http://localhost:10000/temp/pingpongdelay");
+                .loadPlugin(this.state.audioContext, "https://wasabi.i3s.unice.fr/WebAudioPluginBank/WASABI/PingPongDelay3");
             if (plugin) {
                 this.setState({ plugin: plugin });
             }
@@ -115,10 +115,10 @@ class WebAudio extends React.Component {
             const oscillator = this.state.audioContext.createOscillator();
             this.setState({ oscillator: oscillator });
         }
-        try{
+        try {
             const node = await this.state.plugin.load();
-            if(node) {
-                this.state.audioContext.source.connect(this.state.oscillator);
+            if (node) {
+                // this.state.audioContext.source.connect(this.state.oscillator);
                 this.state.oscillator.connect(node);
                 node.connect(this.state.audioContext.destination);
                 const el = await this.state.plugin.loadGui();
@@ -137,11 +137,11 @@ class WebAudio extends React.Component {
                     }
                 });
             }
-        }catch (err) {
+        } catch (err) {
             console.log(err);
-            this.setState({error: err});
+            this.setState({ error: err });
         }
-        
+
     }
 
     _onMidiMessage(message) {
