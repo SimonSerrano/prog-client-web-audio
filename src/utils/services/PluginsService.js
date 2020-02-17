@@ -44,6 +44,17 @@ class PluginsService {
         });
         return fetch(request);
     }
+
+
+    postComment({ pluginId, author, text, rate }) {
+        const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });
+        const request = new Request(API + PLUGINS_ROUTE + "/" + pluginId, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({ author, text, rate })
+        });
+        return fetch(request);
+    }
 }
 
 
