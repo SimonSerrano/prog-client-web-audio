@@ -12,8 +12,9 @@ class PluginForm extends React.Component {
             name: '',
             version: '',
             description: '',
+            selectedFile: File,
             error: '',
-            selectedFile:'',
+
         }
     }
 
@@ -38,12 +39,12 @@ class PluginForm extends React.Component {
                             <label htmlFor="pluginVersion">Version du plugin</label>
                         </div>
                         <div className="input-container input-margin">
-                            <input type="textarea" id="pluginDescription" name="pluginDescription" required value={this.state.description}
+                            <input type="text" id="pluginDescription" name="pluginDescription" required value={this.state.description}
                                 onChange={(e) => this._descriptionChange(e)} />
                             <label htmlFor="pluginDescription">Description du plugin</label>
                         </div>
+                        <input type="file" onChange={(e)=>this.fileChangedHandler(e)} ref={this.selectedFile} />
                     </form>
-                    <input type="file" onChange={this.fileChangedHandler}/>
 
                     <div className="flex-container space-between align-center">
                         <div className="xs12">
@@ -66,11 +67,13 @@ class PluginForm extends React.Component {
 
     fileChangedHandler = (e) => {
         const file = e.target.files[0]
-        this.setState({ selectedFile: file });
+        this.setState({ selectedFile: file,filename:file.name });
 
       }
 
     _nameChange(e) {
+
+
         this.setState({ name: e.target.value });
     }
 
@@ -99,6 +102,7 @@ class PluginForm extends React.Component {
         const service = new PluginsService();
         service.postPlugin(this.state).then(res => {
             this.setState({name:'', version:'', description:'', error:'',selectedFile:''});
+            console.log(res);
         }).catch(err => {
             console.log(err);
         });

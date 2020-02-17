@@ -3,13 +3,18 @@ import { API, PLUGINS_ROUTE } from '../../constants/constant';
 class PluginsService {
 
 
-    postPlugin({ name, version, description, file }) {
-        const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });
+    postPlugin({ name, version, description, selectedFile }) {
+        const headers = new Headers({ 'Content-Type': 'form-data', mode: 'no-cors' });
+        const form = new FormData();
+        form.append("name",name);
+        form.append("version",version);
+        form.append("description",description);
+        form.append("file",selectedFile);
+        console.log(selectedFile);
         const request = new Request(API + PLUGINS_ROUTE, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ name, version, description,file}),
-            file: file,
+            body:form,
         });
         return fetch(request);
     }
