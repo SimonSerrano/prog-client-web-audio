@@ -8,7 +8,8 @@ class PluginsService {
         const request = new Request(API + PLUGINS_ROUTE, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ name, version, description}),
+            
+            body: JSON.stringify({ name, version, description,file}),
             file: file
         });
         return fetch(request);
