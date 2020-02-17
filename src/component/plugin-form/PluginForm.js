@@ -12,7 +12,8 @@ class PluginForm extends React.Component {
             name: '',
             version: '',
             description: '',
-            error: ''
+            error: '',
+            selectedFile:'',
         }
     }
 
@@ -42,6 +43,8 @@ class PluginForm extends React.Component {
                             <label htmlFor="pluginDescription">Description du plugin</label>
                         </div>
                     </form>
+                    <input type="file" onChange={this.fileChangedHandler}/>
+
                     <div className="flex-container space-between align-center">
                         <div className="xs12">
                             {this.state.error ?
@@ -61,6 +64,11 @@ class PluginForm extends React.Component {
         );
     }
 
+    fileChangedHandler = (e) => {
+        const file = e.target.files[0]
+        this.setState({ selectedFile: file });
+
+      }
 
     _nameChange(e) {
         this.setState({ name: e.target.value });
@@ -90,11 +98,10 @@ class PluginForm extends React.Component {
         // TODO send data to backend
         const service = new PluginsService();
         service.postPlugin(this.state).then(res => {
-            this.setState({name:'', version:'', description:'', error:''});
+            this.setState({name:'', version:'', description:'', error:'',selectedFile:''});
         }).catch(err => {
             console.log(err);
         });
-        
     }
 }
 
