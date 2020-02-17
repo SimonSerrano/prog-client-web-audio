@@ -8,7 +8,7 @@ class PluginsService {
         const request = new Request(API + PLUGINS_ROUTE, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ name, version, description}),
+            body: JSON.stringify({ name, version, description }),
             file: file
         });
         return fetch(request);
@@ -49,7 +49,7 @@ class PluginsService {
 
     postComment({ pluginId, author, text, rate }) {
         const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });
-        const request = new Request(API + PLUGINS_ROUTE + "/" + pluginId, {
+        const request = new Request(API + PLUGINS_ROUTE + "/" + pluginId + "/comments", {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({ author, text, rate })
