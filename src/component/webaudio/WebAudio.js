@@ -70,7 +70,7 @@ class WebAudio extends React.Component {
         try {
             await scriptLoader.loadSDK()
             const plugin = await scriptLoader
-                .loadPlugin(this.state.audioContext, "https://combinatronics.com/micbuffa/WebAudioPlugins/master/plugins/PureJS/PingPongDelay");
+                .loadPlugin(this.state.audioContext, "http://localhost:10000/temp/pingpongdelay");
             if (plugin) {
                 this.setState({ plugin: plugin });
             }

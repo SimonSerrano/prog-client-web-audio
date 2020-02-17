@@ -1,10 +1,11 @@
 import PluginsService from "../services/PluginsService";
+import {API, SDK_ROUTE} from '../../constants/constant';
 
 class ScriptLoader {
 
     loadSDK() {
         return new Promise((resolve, reject) => {
-            const sdkPath = `https://combinatronics.com/micbuffa/WebAudioPlugins/master/sdk/WebAudioSDK.js`;
+            const sdkPath = API+SDK_ROUTE;
             const tag = document.createElement('script');
             tag.src = sdkPath;
             tag.onload = resolve();
