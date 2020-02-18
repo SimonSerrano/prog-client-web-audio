@@ -4,7 +4,7 @@ class PluginsService {
 
 
     postPlugin({ name, version, description, selectedFile }) {
-        const headers = new Headers({ 'Content-Type': 'form-data', mode: 'no-cors' });
+        const headers = new Headers({ mode: 'no-cors', enctype:"multipart/form-data" });
         const form = new FormData();
         form.append("name",name);
         form.append("version",version);
