@@ -3,13 +3,13 @@ import { API, PLUGINS_ROUTE } from '../../constants/constant';
 class PluginsService {
 
 
-    postPlugin({ name, version, description, file }) {
+    postPlugin({ name, version, description, image, zip }) {
         const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });
         const request = new Request(API + PLUGINS_ROUTE, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ name, version, description,file}),
-            file: file,
+            body: JSON.stringify({ name, version, description, image, zip }),
+            files: [image, zip]
         });
         return fetch(request);
     }

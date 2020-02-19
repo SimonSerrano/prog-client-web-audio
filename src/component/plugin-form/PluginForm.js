@@ -44,12 +44,12 @@ class PluginForm extends React.Component {
                             <label htmlFor="pluginDescription">Description du plugin</label>
                         </div>
                         <div className={`input-container input-margin ${this.state.image ? 'active' : ''}`}>
-                            <input name="pluginImage" value={this.state.image?.name} type='text' readOnly required />
+                            <input name="pluginImage" value={this.state.image?.name || ''} type='text' readOnly required />
                             <label htmlFor="pluginImage">Image du plugin</label>
                             <input id="pluginImage" accept=".jpg,.png" style={{ display: 'none' }} type="file" onChange={this._imageChangedHandler} />
                         </div>
                         <div className={`input-container input-margin ${this.state.zip ? 'active' : ''}`}>
-                            <input name="pluginZip" value={this.state.zip?.name} type='text' readOnly required />
+                            <input name="pluginZip" value={this.state.zip?.name || ''} type='text' readOnly required />
                             <label htmlFor="pluginZip">Zip du plugin</label>
                             <input id="pluginZip" accept=".zip, .rar" style={{ display: 'none' }} type="file" onChange={this._zipChangedHandler} />
                         </div>
