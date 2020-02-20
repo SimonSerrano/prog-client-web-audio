@@ -25,7 +25,7 @@ class PluginCard extends React.Component {
                                     <img alt="plugins' icon" src={"http://localhost:10000/users/file/" + this.props.plugin.filename} />
                                 </div>
                                 <div className='foot'>
-                                    <div className="btn" onClick={(e) => toggleRoute(undefined, {})}>Essayer</div>
+                                    <div className="btn" onClick={(e) => toggleRoute(undefined, this.props.plugin)}>Essayer</div>
                                 </div>
 
                             </div>
