@@ -2,6 +2,8 @@ import React from 'react';
 import './login-form.css';
 import Cookies from 'js-cookie'
 import LoginService from "../../utils/services/LoginService";
+import { useHistory } from "react-router-dom";
+
 
 class LoginForm extends React.Component{
     constructor(props){
@@ -79,10 +81,10 @@ class LoginForm extends React.Component{
             response => {
                 this.setState({name: '', version: '', description: '', error: ''});
                 if ( response.status === 200 ) {
-                    this.props.history.push('/');
                     response.json().then( data => {
                         Cookies.set('access_token', data['token']);
-                    });
+                        this.props.history.push('/home');
+                      });
 
 
 

@@ -42,9 +42,11 @@ class App extends React.Component {
           <Sidebar></Sidebar>
         </SidebarContext.Provider>
         <Content>
-          <BrowserRouter>
-            <Switch>
-              <Route path="/secret" component={withAuth(PluginList)} />
+          <BrowserRouter >
+            <Switch >
+              <Route path="/home" component={withAuth(PluginList)} />
+              <Route path= "/pluginView" component = { withAuth(PluginView)} />
+              <Route path="/add-plugin" component={ withAuth(PluginForm)} />
               <Route path="/login" component={LoginForm} />
             </Switch>
           </BrowserRouter>
