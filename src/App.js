@@ -11,6 +11,9 @@ import PluginForm from './component/plugin-form/PluginForm';
 import PluginView from './component/plugin-view/PluginView';
 import RouteContext from './context/RouteContext';
 import { HOME, ADD_PLUGIN } from './constants/routes';
+import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
+import withAuth from "./utils/withAuth";
+import LoginForm from "./component/login-form/LoginForm";
 
 
 class App extends React.Component {
@@ -39,23 +42,12 @@ class App extends React.Component {
           <Sidebar></Sidebar>
         </SidebarContext.Provider>
         <Content>
-          <RouteContext.Consumer>
-            {
-              ({route, plugin, toggleRoute}) => {
-                if(route === HOME) {
-                  if(plugin) {
-                    return (<PluginView></PluginView>)
-                  }else {
-                    return (<PluginList></PluginList>);
-                  }
-                }else if(route === ADD_PLUGIN) {
-                  return (<PluginForm></PluginForm>);
-                }else {
-                  toggleRoute(HOME);
-                }
-              }
-            }
-          </RouteContext.Consumer>
+          <BrowserRouter>
+            <Switch>
+              <Route path="/secret" component={withAuth(PluginList)} />
+              <Route path="/login" component={LoginForm} />
+            </Switch>
+          </BrowserRouter>
         </Content>
       </Layout>
     );

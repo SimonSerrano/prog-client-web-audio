@@ -24,7 +24,7 @@ class WebAudio extends React.Component {
             audioContext: new (window.AudioContext || window.webkitAudioContext)(),
             oscillator: null,
             isStarted: false
-        }
+        };
         document.addEventListener('keydown', (e) => {
             if(this.emulatedKeys.hasOwnProperty(e.key)) {
                 this._noteOn(this.emulatedKeys[e.key]);
