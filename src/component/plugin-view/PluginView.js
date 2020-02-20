@@ -4,6 +4,8 @@ import '../../styles/buttons.css';
 import img from './image.jpg'
 import WebAudio from '../webaudio/WebAudio';
 import PluginsService from '../../utils/services/PluginsService';
+import CommentList from '../comment-list/CommentList';
+import PluginCommentForm from '../plugin-comment-form/PluginCommentForm';
 
 class PluginView extends React.Component {
     constructor(props) {
@@ -62,6 +64,12 @@ class PluginView extends React.Component {
                         Supprimer
                         </div>
                 </div>
+                <PluginCommentForm pluginId={this.props.plugin._id}></PluginCommentForm>
+                {
+                    this.props.plugin.comments ?
+                    <CommentList comments={this.props.plugin.comments}></CommentList>
+                    :<div></div>
+                }
             </div>
         );
     }
