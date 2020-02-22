@@ -1,10 +1,11 @@
 import React from 'react';
-import './login-form.css';
+import './login-creation.css';
 import Cookies from 'js-cookie'
 import LoginService from "../../utils/services/LoginService";
+import { useHistory } from "react-router-dom";
 
 
-class LoginForm extends React.Component{
+class LoginCreation extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -18,7 +19,7 @@ class LoginForm extends React.Component{
         return (
             <div className="flex-container column justify-center align-center fill-height margin">
                 <div className="xs12 fill-height">
-                    <h4>Entrez vos identifiants</h4>
+                    <h4>Creation de votre compte</h4>
                 </div>
                 <div className="xs12 fill-height" style={{width: '25%'}}>
                     <form name='pluginForm'>
@@ -76,22 +77,10 @@ class LoginForm extends React.Component{
 
         // TODO send data to backend
         const service = new LoginService();
-        service.postLogin(this.state).then(
+        service.create_account(this.state).then(
             response => {
-                this.setState({name: '', version: '', description: '', error: ''});
                 if ( response.status === 200 ) {
-                    response.json().then( data => {
-                        Cookies.set('access_token', data['token']);
-                        Cookies.set('username',data['name']);
-                        this.props.history.push('/home');
-
-                    });
-
-
-
-
-                } else {
-                    throw new Error(response.error);
+                    this.props.history.push('/login');
                 }
 
 
@@ -102,7 +91,7 @@ class LoginForm extends React.Component{
     }
 
     _createAccount() { // a faire inshallah in a near future;
-        this.props.history.push('/createAccount');
+
     }
 }
-export default LoginForm;
+export default LoginCreation;

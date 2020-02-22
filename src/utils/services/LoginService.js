@@ -16,6 +16,15 @@ class LoginService {
     }
 
 
+    create_account({name,password}) {
+        const headers = new Headers({'Content-Type': 'application/json', mode: 'no-cors'});
+        const request = new Request(`${API}/account/create_account`, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({name, password})
+        });
+        return fetch(request);
+    }
 }
 
 
