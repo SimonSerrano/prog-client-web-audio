@@ -4,9 +4,7 @@ import CommentCard from '../comment-card/CommentCard';
 
 class CommentList extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+    
 
     render() {
         return (

@@ -2,9 +2,7 @@ import React from 'react';
 import './comment-card.css';
 
 class CommentCard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    
 
     render() {
         return (

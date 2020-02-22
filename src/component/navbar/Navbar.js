@@ -1,8 +1,14 @@
 import React from 'react';
 import './navbar.css';
 import SidebarContext from '../../context/SidebarContext';
+import Cookies from "js-cookie";
+import {Link} from "react-router-dom";
 
 class Navbar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.name = Cookies.get('username');
+    }
 
 
     render() {
@@ -23,11 +29,18 @@ class Navbar extends React.Component {
                 <div className='grow col xs6 margin'>
                     <div className='flex-container justify-right center nowrap'>
                         <div className='grow xs6'>
-                            <p>Michou</p>
+                            <p>{this.name}</p>
                         </div>
                         <div className='grow xs6 margin'>
                             <span className='primary light'>
-                                <i className="fas fa-user-circle big"></i>
+                                  <Link to="/login">
+                                    <i className="fas fa-sign-out-alt" onClick={(e) => { Cookies.set('access_token', );
+                                        Cookies.set('username','');} }>
+
+                                    </i>
+                                </Link>
+
+
                             </span>
                         </div>
                     </div>

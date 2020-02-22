@@ -7,36 +7,36 @@ import { API, PLUGINS_ROUTE } from '../../constants/constant';
 import PluginsService from '../../utils/services/PluginsService';
 import CommentList from '../comment-list/CommentList';
 import PluginCommentForm from '../plugin-comment-form/PluginCommentForm';
-import RouteContext from '../../context/RouteContext';
 import Spinner from '../spinner/Spinner';
 
 class PluginView extends React.Component {
+
+    plugin;
 
     constructor(props) {
         super(props);
         this.state = {
             baseUrl: ''
         };
+        this.plugin = props.location.state.plugin;
         this._getPluginUrl();
     }
 
     render() {
-        return (
-            <RouteContext.Consumer>{
-                ({ toggleRoute }) => {
+        
                     return (
                         <div className="wrapper">
                             <div className="card">
-                                <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.props.plugin._id}/image`} height="20%" width="20%" />
+                                <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.plugin._id}/image`} height="20%" width="20%" />
                                 <div className="card_items">
-                                    <div className="title">{this.props.plugin.name}</div>
+                                    <div className="title">{this.plugin.name}</div>
 
                                     <div className="card_item">
                                         <div className="subtitle">
                                             Version :
                                 </div>
                                         <div className="inside">
-                                            {this.props.plugin.version}
+                                            {this.plugin.version}
                                         </div>
                                     </div>
                                     <div className="card_item">
@@ -60,10 +60,17 @@ class PluginView extends React.Component {
                                     Description :
                                 </div>
                                 <div className="description_body">
-                                    {this.props.plugin.description}
+                                    {this.plugin.description}
                                 </div>
                             </div>
                             <div className="footer_buttons">
+
+
+                                <div className="btn" onClick={(e) => {
+this._deletePlugin(this.plugin._id)}}> Supprimer
+
+                                
+                                </div>
                                 <div>
                                     {
                                         this.state.baseUrl ?
@@ -72,24 +79,16 @@ class PluginView extends React.Component {
                                             <Spinner></Spinner>
                                     }
                                 </div>
-
-                                <div className="btn" onClick={(e) => {
-                                    this._deletePlugin(this.props.plugin._id).then(
-                                        toggleRoute(undefined, undefined))
-                                }}> Supprimer
-                                </div>
                             </div>
                             {
-                                this.props.plugin.comments ?
-                                    <CommentList comments={this.props.plugin.comments}></CommentList>
+                                this.plugin.comments ?
+                                    <CommentList comments={this.plugin.comments}></CommentList>
                                     : <div></div>
+
                             }
-                            <PluginCommentForm pluginId={this.props.plugin._id}></PluginCommentForm>
+                            <PluginCommentForm pluginId={this.plugin._id}></PluginCommentForm>
                         </div>
-                    )
-                }}
-            </RouteContext.Consumer>
-        );
+                    );
     }
 
     _buildModal(element) {
@@ -98,8 +97,9 @@ class PluginView extends React.Component {
 
     async _getPluginUrl() {
         const service = new PluginsService();
-        const json = await service.getPluginCodeUrls(this.props.plugin);
+        const json = await service.getPluginCodeUrls(this.plugin);
         this.setState({ baseUrl: json.url });
+
     }
 
     _deletePlugin(id) {

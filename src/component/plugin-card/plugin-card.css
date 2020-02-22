@@ -1,7 +1,11 @@
 
 .plugin{
     background-color: white;
-
+    min-height: 20vh;
+    border-radius: 4px;
+}
+.plugin > * {
+    flex: 1 0 auto;
 }
 .plugin>.title{
     padding:2vh 2vw;
@@ -15,13 +19,11 @@
     content: 'Version : ';
     color: var(--primary);
 }
-.img {
-    width:100%;
-    border-bottom: 1px solid #DDD;
-}
-img{
-    max-height: 25vh;
 
+img{
+    height: 25vh;
+    max-width: 20vw;
+    object-fit: scale-down;
 }
 .review{
     padding:1vh 2vw 2vh 2vw;
@@ -33,9 +35,11 @@ img{
     color: var(--primary);
 }
 .foot{
+    width: 100%;
+    border-top: 1px solid #DDD;
     display: flex;
     flex-direction: row-reverse;
-    padding: 2vh;
+    align-items: center;
 }
 .wrap{
     margin: 4vh 0 0 1vw;
