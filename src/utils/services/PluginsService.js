@@ -3,18 +3,18 @@ import { API, PLUGINS_ROUTE } from '../../constants/constant';
 class PluginsService {
 
 
-    postPlugin({ name, version, description, selectedFile }) {
-        const headers = new Headers({ mode: 'no-cors', enctype:"multipart/form-data" });
+    postPlugin({ name, version, description, image, zip }) {
+        const headers = new Headers({ mode: 'no-cors', enctype: "multipart/form-data" });
         const form = new FormData();
-        form.append("name",name);
-        form.append("version",version);
-        form.append("description",description);
-        form.append("file",selectedFile);
-        console.log(selectedFile);
+        form.append("name", name);
+        form.append("version", version);
+        form.append("description", description);
+        form.append("image", image);
+        form.append("zip", zip);
         const request = new Request(API + PLUGINS_ROUTE, {
             method: 'POST',
             headers: headers,
-            body:form,
+            body: form,
         });
         return fetch(request);
     }
@@ -29,6 +29,36 @@ class PluginsService {
                 return err;
             });
 
+    }
+
+    async getPlugin(plugin) {
+        const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });
+        const request = new Request(API + PLUGINS_ROUTE + plugin._id, {
+            method: 'GET',
+            headers: headers
+        });
+        try{
+            const response = await fetch(request);
+            return response.json();
+        }catch(err){
+            console.log(err);
+            throw err;
+        }
+    }
+
+    async getPluginCodeUrls(plugin) {
+        const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });
+        const request = new Request(API + PLUGINS_ROUTE +'/'+ plugin._id+'/plugin', {
+            method: 'GET',
+            headers: headers
+        });
+        try{
+            const response = await fetch(request);
+            return response.json();
+        }catch(err){
+            console.log(err);
+            throw err;
+        }
     }
 
 

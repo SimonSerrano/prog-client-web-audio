@@ -1,6 +1,7 @@
 import React from 'react';
 import ScriptLoader from '../../utils/loader/ScriptLoader';
 import Spinner from '../spinner/Spinner';
+import {API} from '../../constants/constant';
 
 
 
@@ -65,18 +66,22 @@ class WebAudio extends React.Component {
         }
     }
 
+    
+
     async componentDidMount() {
-        const scriptLoader = new ScriptLoader();
-        try {
-            await scriptLoader.loadSDK()
-            const plugin = await scriptLoader
-                .loadPlugin(this.state.audioContext, "http://localhost:10000/temp/pingpongdelay");
-            if (plugin) {
-                this.setState({ plugin: plugin });
+        if (this.props.baseUrl) {
+            const scriptLoader = new ScriptLoader();
+            try {
+                await scriptLoader.loadSDK()
+                const plugin = await scriptLoader
+                    .loadPlugin(this.state.audioContext, API + this.props.baseUrl);
+                if (plugin) {
+                    this.setState({ plugin: plugin });
+                }
+            } catch (err) {
+                console.log(err);
+                this.setState({ error: err });
             }
-        } catch (err) {
-            console.log(err);
-            this.setState({ error: err });
         }
     }
 
@@ -122,6 +127,7 @@ class WebAudio extends React.Component {
                 this.state.oscillator.connect(node);
                 node.connect(this.state.audioContext.destination);
                 const el = await this.state.plugin.loadGui();
+                this.props.guiCallback(el);
                 document.querySelectorAll('#WAP')[0].appendChild(el);
                 for (const input of res.inputs.values()) {
                     input.onmidimessage = this._onMidiMessage.bind(this);

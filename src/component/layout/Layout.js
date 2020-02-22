@@ -11,12 +11,12 @@ class Layout extends React.Component {
             route: 'home',
             plugin: undefined,
             toggleRoute: (route, plugin) => {
-                const path = route?route: this.state.route;
-                this.setState({route: path, plugin: plugin});
+                const path = route ? route : this.state.route;
+                this.setState({ route: path, plugin: plugin });
             }
         }
     }
-    
+
 
     render() {
         return (

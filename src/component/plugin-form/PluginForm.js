@@ -12,9 +12,9 @@ class PluginForm extends React.Component {
             name: '',
             version: '',
             description: '',
-            selectedFile: File,
             error: '',
-
+            image: null,
+            zip: null,
         }
     }
 
@@ -25,7 +25,7 @@ class PluginForm extends React.Component {
                 <div className="xs12 fill-height">
                     <h4>Ajouter un plugin</h4>
                 </div>
-                <div className="xs12 fill-height" style={{width: '75%'}}>
+                <div className="xs12 fill-height" style={{ width: '75%' }}>
                     <form name='pluginForm'>
 
                         <div className="input-container input-margin">
@@ -43,15 +43,24 @@ class PluginForm extends React.Component {
                                 onChange={(e) => this._descriptionChange(e)} />
                             <label htmlFor="pluginDescription">Description du plugin</label>
                         </div>
-                        <input type="file" onChange={(e)=>this.fileChangedHandler(e)} ref={this.selectedFile} />
+                        <div className={`input-container input-margin ${this.state.image ? 'active' : ''}`}>
+                            <input name="pluginImage" value={this.state.image?.name || ''} type='text' readOnly required />
+                            <label htmlFor="pluginImage">Image du plugin</label>
+                            <input id="pluginImage" accept=".jpg,.png" style={{ display: 'none' }} type="file" onChange={this._imageChangedHandler} />
+                        </div>
+                        <div className={`input-container input-margin ${this.state.zip ? 'active' : ''}`}>
+                            <input name="pluginZip" value={this.state.zip?.name || ''} type='text' readOnly required />
+                            <label htmlFor="pluginZip">Zip du plugin</label>
+                            <input id="pluginZip" accept=".zip, .rar" style={{ display: 'none' }} type="file" onChange={this._zipChangedHandler} />
+                        </div>
                     </form>
 
                     <div className="flex-container space-between align-center">
                         <div className="xs12">
                             {this.state.error ?
-                                
-                                    <p style={{color: 'red'}}>{this.state.error}</p>
-                                
+
+                                <p style={{ color: 'red' }}>{this.state.error}</p>
+
                                 :
                                 ''
                             }
@@ -65,11 +74,15 @@ class PluginForm extends React.Component {
         );
     }
 
-    fileChangedHandler = (e) => {
-        const file = e.target.files[0]
-        this.setState({ selectedFile: file,filename:file.name });
+    _zipChangedHandler = (e) => {
+        const file = e.target.files[0];
+        this.setState({zip: file});
+    }
 
-      }
+    _imageChangedHandler = (e) => {
+        const file = e.target.files[0];
+        this.setState({ image: file });
+    }
 
     _nameChange(e) {
 
@@ -87,21 +100,28 @@ class PluginForm extends React.Component {
 
     _submit() {
         if (!this.state.name) {
-            this.setState({error: 'Nom manquant'});
+            this.setState({ error: 'Nom manquant' });
             return;
         }
-        if(!this.state.version) {
-            this.setState({error: 'Version manquante'});
+        if (!this.state.version) {
+            this.setState({ error: 'Version manquante' });
             return;
         }
-        if(!this.state.description) {
-            this.setState({error: 'Description manquante'});
+        if (!this.state.description) {
+            this.setState({ error: 'Description manquante' });
             return;
         }
-        // TODO send data to backend
+        if(!this.state.image) {
+            this.setState({error: 'Image manquante'});
+            return;
+        }
+        if(!this.state.zip) {
+            this.setState({error: 'Zip manquant'});
+            return;
+        }
         const service = new PluginsService();
         service.postPlugin(this.state).then(res => {
-            this.setState({name:'', version:'', description:'', error:'',selectedFile:''});
+            this.setState({ name: '', version: '', description: '', error: '', image: '', zip: '' });
             console.log(res);
         }).catch(err => {
             console.log(err);

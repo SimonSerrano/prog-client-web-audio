@@ -32,6 +32,17 @@ input, label {
 
 /* Interation */
 
+.active>input {
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.active>input+label {
+  color: var(--primary-light);
+  font-size: .8rem;
+  top: -30px;
+  pointer-events: none;
+}
+
 input:valid, input:focus {
   border-bottom: 2px solid var(--primary-light);
 }
