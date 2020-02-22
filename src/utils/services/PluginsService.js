@@ -46,6 +46,21 @@ class PluginsService {
         }
     }
 
+    async getPluginCodeUrls(plugin) {
+        const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });
+        const request = new Request(API + PLUGINS_ROUTE +'/'+ plugin._id+'/plugin', {
+            method: 'GET',
+            headers: headers
+        });
+        try{
+            const response = await fetch(request);
+            return response.json();
+        }catch(err){
+            console.log(err);
+            throw err;
+        }
+    }
+
 
     async getPlugins() {
         const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });

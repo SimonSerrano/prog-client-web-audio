@@ -8,12 +8,18 @@ import PluginsService from '../../utils/services/PluginsService';
 import CommentList from '../comment-list/CommentList';
 import PluginCommentForm from '../plugin-comment-form/PluginCommentForm';
 import RouteContext from '../../context/RouteContext';
+import Spinner from '../spinner/Spinner';
 
 class PluginView extends React.Component {
+
     constructor(props) {
         super(props);
-        console.log(props);
+        this.state = {
+            baseUrl: ''
+        };
+        this._getPluginUrl();
     }
+
     render() {
         return (
             <RouteContext.Consumer>{
@@ -22,7 +28,12 @@ class PluginView extends React.Component {
                         <div className="wrapper">
                             <div className="header">
                                 <div className="title">{this.props.plugin.name}</div>
-                                <WebAudio></WebAudio>
+                                {
+                                    this.state.baseUrl ? 
+                                    <WebAudio baseUrl={this.state.baseUrl}></WebAudio>
+                                    :
+                                    <Spinner></Spinner>
+                                }
                             </div>
                             <div className="card">
                                 <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.props.plugin._id}/image`} height="20%" width="20%" />
@@ -74,6 +85,13 @@ class PluginView extends React.Component {
             </RouteContext.Consumer>
         );
     }
+
+    async _getPluginUrl() {
+        const service = new PluginsService();
+        const json = await service.getPluginCodeUrls(this.props.plugin);
+        this.setState({baseUrl: json.url});
+    }
+
     _deletePlugin(id) {
         return new Promise((resolve,reject)=>{
             const pluginsService = new PluginsService();

@@ -4,10 +4,7 @@ import RouteContext from '../../context/RouteContext';
 import { API, PLUGINS_ROUTE } from '../../constants/constant';
 
 class PluginCard extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log(this.props);
-    }
+    
 
     render() {
         return (
