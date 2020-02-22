@@ -88,7 +88,7 @@ this._deletePlugin(this.plugin._id)}}> Supprimer
     }
 
     _buildModal(element) {
-        document.querySelectorAll('.wrapper')[0].appendChild(element);
+        document.querySelectorAll('.description')[0].appendChild(element);
     }
 
     async _getPluginUrl() {
