@@ -11,6 +11,9 @@ import PluginForm from './component/plugin-form/PluginForm';
 import PluginView from './component/plugin-view/PluginView';
 import RouteContext from './context/RouteContext';
 import { HOME, ADD_PLUGIN } from './constants/routes';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import withAuth from "./utils/withAuth";
+import LoginForm from "./component/login-form/LoginForm";
 
 
 class App extends React.Component {
@@ -34,30 +37,24 @@ class App extends React.Component {
   render() {
     return (
       <Layout>
-        <SidebarContext.Provider value={this.state}>
-          <Navbar></Navbar>
-          <Sidebar></Sidebar>
-        </SidebarContext.Provider>
-        <Content>
-          <RouteContext.Consumer>
-            {
-              ({route, plugin, toggleRoute}) => {
-                if(route === HOME) {
-                  if(plugin) {
-                    return (<PluginView plugin={plugin}></PluginView>)
-                  }else {
-                    return (<PluginList></PluginList>);
-                  }
-                }else if(route === ADD_PLUGIN) {
-                  return (<PluginForm></PluginForm>);
-                }else {
-                  toggleRoute(HOME);
-                }
-              }
-            }
-          </RouteContext.Consumer>
-        </Content>
-      </Layout>
+        <BrowserRouter >
+
+          <SidebarContext.Provider value={this.state}>
+            <Navbar></Navbar>
+            <Sidebar></Sidebar>
+          </SidebarContext.Provider>
+
+          <Content>
+            <Switch>
+              <Route path="/home" component={withAuth(PluginList)} />
+              <Route path="/pluginView" component={withAuth(PluginView)} />
+              <Route path="/add-plugin" component={withAuth(PluginForm)} />
+              <Route path="/login" component={LoginForm} />
+            </Switch>
+          </Content>
+
+        </BrowserRouter>
+      </Layout >
     );
   }
 
