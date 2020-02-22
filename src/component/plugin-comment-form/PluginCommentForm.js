@@ -19,11 +19,11 @@ class PluginCommentForm extends React.Component {
 
     render() {
         return (
-            <div className="flex-container column justify-center align-center fill-height margin">
-                <div className="xs12 fill-height">
+            <div className="flex-container column justify-center align-left fill-height">
+                <div className="add_comment">
                     <h4>Ajouter un commentaire</h4>
                 </div>
-                <div className="xs12 fill-height" style={{width: '75%'}}>
+                <div className="xs12 fill-height" style={{width: '100%'}}>
                     <form name='pluginCommentForm'>
                         <div className="input-container input-margin">
                             <input type="text" id="pluginAuthor" name="pluginAuthor" required value={this.state.author}
