@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import {BrowserRouter, Redirect, Route} from 'react-router-dom';
 import Cookies from 'js-cookie'
+import LoginForm from "../component/login-form/LoginForm";
 export default function withAuth(ComponentToProtect) {
     return class extends Component {
         constructor() {
@@ -36,7 +37,9 @@ export default function withAuth(ComponentToProtect) {
                 return null;
             }
             if (redirect) {
-                return <Redirect to="/login" />;
+                console.log("on est dedans");
+                this.props.history.push('/login');
+                return    <LoginForm/>;
             }
             return <ComponentToProtect {...this.props} />;
         }

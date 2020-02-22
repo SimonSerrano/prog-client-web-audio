@@ -11,7 +11,7 @@ import PluginForm from './component/plugin-form/PluginForm';
 import PluginView from './component/plugin-view/PluginView';
 import RouteContext from './context/RouteContext';
 import { HOME, ADD_PLUGIN } from './constants/routes';
-import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import withAuth from "./utils/withAuth";
 import LoginForm from "./component/login-form/LoginForm";
 
@@ -37,19 +37,24 @@ class App extends React.Component {
   render() {
     return (
       <Layout>
-        <SidebarContext.Provider value={this.state}>
-          <Navbar></Navbar>
-          <Sidebar></Sidebar>
-        </SidebarContext.Provider>
-        <Content>
-          <BrowserRouter>
+        <BrowserRouter >
+
+          <SidebarContext.Provider value={this.state}>
+            <Navbar></Navbar>
+            <Sidebar></Sidebar>
+          </SidebarContext.Provider>
+
+          <Content>
             <Switch>
-              <Route path="/secret" component={withAuth(PluginList)} />
+              <Route path="/home" component={withAuth(PluginList)} />
+              <Route path="/pluginView" component={withAuth(PluginView)} />
+              <Route path="/add-plugin" component={withAuth(PluginForm)} />
               <Route path="/login" component={LoginForm} />
             </Switch>
-          </BrowserRouter>
-        </Content>
-      </Layout>
+          </Content>
+
+        </BrowserRouter>
+      </Layout >
     );
   }
 
