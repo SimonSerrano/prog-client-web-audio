@@ -4,6 +4,7 @@ import '../../styles/buttons.css';
 import SidebarContext from '../../context/SidebarContext';
 import RouteContext from '../../context/RouteContext';
 import { ADD_PLUGIN, HOME } from '../../constants/routes';
+import { Link } from 'react-router-dom';
 
 class Sidebar extends React.Component {
 
@@ -20,14 +21,18 @@ class Sidebar extends React.Component {
                                         return (
                                             <>
                                                 <div className="grow col xs12">
-                                                    <div className="btn flat" onClick={(e) => {toggleRoute(HOME); toggleSidebar(false)}}>
-                                                        Accueil
-                                                    </div>
+                                                    <Link to="/home">
+                                                        <div className="btn flat" onClick={(e) => { toggleRoute(HOME); toggleSidebar(false) }}>
+                                                            Accueil
+                                                        </div>
+                                                    </Link>
                                                 </div>
                                                 <div className='grow col xs12'>
-                                                    <div className="btn flat" onClick={(e) => {toggleRoute(ADD_PLUGIN); toggleSidebar(false)}}>
-                                                        Ajouter un plugin
-                                                    </div>
+                                                    <Link to="/add-plugin">
+                                                        <div className="btn flat" onClick={(e) => { toggleRoute(ADD_PLUGIN); toggleSidebar(false) }}>
+                                                            Ajouter un plugin
+                                                        </div>
+                                                    </Link>
                                                 </div>
                                             </>
                                         );
