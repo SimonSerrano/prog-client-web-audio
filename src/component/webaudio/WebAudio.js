@@ -29,16 +29,20 @@ class WebAudio extends React.Component {
             oscillator: null,
             isStarted: false
         };
-        document.addEventListener('keydown', (e) => {
-            if(this.emulatedKeys.hasOwnProperty(e.key)) {
-                this._noteOn(this.emulatedKeys[e.key]);
-            }
-        });
-        document.addEventListener('keyup', (e) => {
-            if(this.emulatedKeys.hasOwnProperty(e.key)) {
-                this._noteOff();
-            }
-        })
+        document.addEventListener('keydown', this._keyDownListener.bind(this));
+        document.addEventListener('keyup', this._keyUpListener.bind(this));
+    }
+
+    _keyDownListener(e) {
+        if(this.emulatedKeys.hasOwnProperty(e.key)) {
+            this._noteOn(this.emulatedKeys[e.key]);
+        }
+    }
+
+    _keyUpListener(e) {
+        if(this.emulatedKeys.hasOwnProperty(e.key)) {
+            this._noteOff();
+        }
     }
 
     render() {
@@ -91,6 +95,11 @@ class WebAudio extends React.Component {
                 this.setState({ error: err });
             }
         }
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keyup', this._keyUpListener.bind(this));
+        document.removeEventListener('keydown', this._keyDownListener.bind(this));
     }
 
     async _onPlay() {
