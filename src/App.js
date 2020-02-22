@@ -38,18 +38,21 @@ class App extends React.Component {
     return (
       <Layout>
         <BrowserRouter >
-          <Switch >
-            <SidebarContext.Provider value={this.state}>
-              <Navbar></Navbar>
-              <Sidebar></Sidebar>
-            </SidebarContext.Provider>
-            <Content>
+
+          <SidebarContext.Provider value={this.state}>
+            <Navbar></Navbar>
+            <Sidebar></Sidebar>
+          </SidebarContext.Provider>
+
+          <Content>
+            <Switch>
               <Route path="/home" component={withAuth(PluginList)} />
               <Route path="/pluginView" component={withAuth(PluginView)} />
               <Route path="/add-plugin" component={withAuth(PluginForm)} />
               <Route path="/login" component={LoginForm} />
-            </Content>
-          </Switch>
+            </Switch>
+          </Content>
+
         </BrowserRouter>
       </Layout >
     );
