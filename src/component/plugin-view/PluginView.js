@@ -12,11 +12,14 @@ import Spinner from '../spinner/Spinner';
 
 class PluginView extends React.Component {
 
+    plugin;
+
     constructor(props) {
         super(props);
         this.state = {
             baseUrl: ''
         };
+        this.plugin = props.location.state.plugin;
         this._getPluginUrl();
     }
 
@@ -27,7 +30,7 @@ class PluginView extends React.Component {
                     return (
                         <div className="wrapper">
                             <div className="header">
-                                <div className="title">{this.props.plugin.name}</div>
+                                <div className="title">{this.plugin.name}</div>
                                 {
                                     this.state.baseUrl ? 
                                     <WebAudio guiCallback={this._buildModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
@@ -36,14 +39,14 @@ class PluginView extends React.Component {
                                 }
                             </div>
                             <div className="card">
-                                <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.props.plugin._id}/image`} height="20%" width="20%" />
+                                <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.plugin._id}/image`} height="20%" width="20%" />
                                 <div className="card_items">
                                     <div className="card_item">
                                         <div className="subtitle">
                                             Version :
                                 </div>
                                         <div className="inside">
-                                            {this.props.plugin.version}
+                                            {this.plugin.version}
                                         </div>
                                     </div>
                                     <div className="card_item">
@@ -64,19 +67,19 @@ class PluginView extends React.Component {
                             <div className="description">
 
                                 <div className="description_body">
-                                    {this.props.plugin.description}
+                                    {this.plugin.description}
                                 </div>
                             </div>
                             <div className="footer_buttons">
                                 <div className="btn" onClick={(e) => {
-                                    this._deletePlugin(this.props.plugin._id).then(
+                                    this._deletePlugin(this.plugin._id).then(
                                         toggleRoute(undefined, undefined))}}> Supprimer
                                 </div>
                             </div>
-                            <PluginCommentForm pluginId={this.props.plugin._id}></PluginCommentForm>
+                            <PluginCommentForm pluginId={this.plugin._id}></PluginCommentForm>
                             {
-                                this.props.plugin.comments ?
-                                <CommentList comments={this.props.plugin.comments}></CommentList>
+                                this.plugin.comments ?
+                                <CommentList comments={this.plugin.comments}></CommentList>
                                 :<div></div>
                             }
                         </div>
@@ -92,7 +95,7 @@ class PluginView extends React.Component {
 
     async _getPluginUrl() {
         const service = new PluginsService();
-        const json = await service.getPluginCodeUrls(this.props.plugin);
+        const json = await service.getPluginCodeUrls(this.plugin);
         this.setState({baseUrl: json.url});
     }
 
