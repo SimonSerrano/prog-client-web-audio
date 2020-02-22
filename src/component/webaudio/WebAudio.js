@@ -127,6 +127,7 @@ class WebAudio extends React.Component {
                 this.state.oscillator.connect(node);
                 node.connect(this.state.audioContext.destination);
                 const el = await this.state.plugin.loadGui();
+                this.props.guiCallback(el);
                 document.querySelectorAll('#WAP')[0].appendChild(el);
                 for (const input of res.inputs.values()) {
                     input.onmidimessage = this._onMidiMessage.bind(this);

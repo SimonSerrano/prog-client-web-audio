@@ -30,7 +30,7 @@ class PluginView extends React.Component {
                                 <div className="title">{this.props.plugin.name}</div>
                                 {
                                     this.state.baseUrl ? 
-                                    <WebAudio baseUrl={this.state.baseUrl}></WebAudio>
+                                    <WebAudio guiCallback={this._buildModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
                                     :
                                     <Spinner></Spinner>
                                 }
@@ -84,6 +84,10 @@ class PluginView extends React.Component {
                 }}
             </RouteContext.Consumer>
         );
+    }
+
+    _buildModal(element) {
+        console.log(element);
     }
 
     async _getPluginUrl() {
