@@ -14,35 +14,18 @@ import { HOME, ADD_PLUGIN } from './constants/routes';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import withAuth from "./utils/withAuth";
 import LoginForm from "./component/login-form/LoginForm";
+import NavigationWrapper from './component/navigation-wrapper/NavigationWrapper';
 
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.toggleSidebar = () => {
-      this.setState(state => ({
-        open: !state.open
-      }));
-    };
-
-    this.state = {
-      open: false,
-      toggleSidebar: this.toggleSidebar
-    };
-
-  }
 
   render() {
     return (
       <Layout>
         <BrowserRouter >
 
-          <SidebarContext.Provider value={this.state}>
-            <Navbar></Navbar>
-            <Sidebar></Sidebar>
-          </SidebarContext.Provider>
+          <NavigationWrapper></NavigationWrapper>
 
           <Content>
             <Switch>
