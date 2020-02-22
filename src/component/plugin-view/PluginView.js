@@ -26,18 +26,11 @@ class PluginView extends React.Component {
         
                     return (
                         <div className="wrapper">
-                            <div className="header">
-                                <div className="title">{this.plugin.name}</div>
-                                {
-                                    this.state.baseUrl ? 
-                                    <WebAudio guiCallback={this._buildModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
-                                    :
-                                    <Spinner></Spinner>
-                                }
-                            </div>
                             <div className="card">
                                 <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.plugin._id}/image`} height="20%" width="20%" />
                                 <div className="card_items">
+                                    <div className="title">{this.plugin.name}</div>
+
                                     <div className="card_item">
                                         <div className="subtitle">
                                             Version :
@@ -50,6 +43,7 @@ class PluginView extends React.Component {
                                         <div className="subtitle">
                                             Labels :
                                         </div>
+
                                         <div className="labels">
                                             <li>ceci</li>
                                             <li>est</li>
@@ -62,44 +56,60 @@ class PluginView extends React.Component {
                                 </div>
                             </div>
                             <div className="description">
-
+                                <div className="description_title">
+                                    Description :
+                                </div>
                                 <div className="description_body">
                                     {this.plugin.description}
                                 </div>
                             </div>
                             <div className="footer_buttons">
+
+
                                 <div className="btn" onClick={(e) => {
-                                    this._deletePlugin(this.plugin._id)}}> Supprimer
+this._deletePlugin(this.plugin._id)}}> Supprimer
+
+                                
+                                </div>
+                                <div>
+                                    {
+                                        this.state.baseUrl ?
+                                            <WebAudio guiCallback={this._buildModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
+                                            :
+                                            <Spinner></Spinner>
+                                    }
                                 </div>
                             </div>
-                            <PluginCommentForm pluginId={this.plugin._id}></PluginCommentForm>
                             {
                                 this.plugin.comments ?
-                                <CommentList comments={this.plugin.comments}></CommentList>
-                                :<div></div>
+                                    <CommentList comments={this.plugin.comments}></CommentList>
+                                    : <div></div>
+
                             }
+                            <PluginCommentForm pluginId={this.plugin._id}></PluginCommentForm>
                         </div>
                     );
     }
 
     _buildModal(element) {
-        console.log(element);
+        document.querySelectorAll('.header')[0].appendChild(element);
     }
 
     async _getPluginUrl() {
         const service = new PluginsService();
         const json = await service.getPluginCodeUrls(this.plugin);
-        this.setState({baseUrl: json.url});
+        this.setState({ baseUrl: json.url });
+
     }
 
     _deletePlugin(id) {
-        return new Promise((resolve,reject)=>{
+        return new Promise((resolve, reject) => {
             const pluginsService = new PluginsService();
             pluginsService.deletePlugin(id).then(
                 (res) => {
-                    if(res.ok){
+                    if (res.ok) {
                         resolve()
-                    } else{
+                    } else {
                         reject()
                     }
                 }
