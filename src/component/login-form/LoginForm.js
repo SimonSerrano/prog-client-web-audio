@@ -2,7 +2,6 @@ import React from 'react';
 import './login-form.css';
 import Cookies from 'js-cookie'
 import LoginService from "../../utils/services/LoginService";
-import { useHistory } from "react-router-dom";
 
 
 class LoginForm extends React.Component{

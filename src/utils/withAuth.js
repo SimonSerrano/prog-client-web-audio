@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Redirect, Route} from 'react-router-dom';
 import Cookies from 'js-cookie'
 import LoginForm from "../component/login-form/LoginForm";
 export default function withAuth(ComponentToProtect) {
