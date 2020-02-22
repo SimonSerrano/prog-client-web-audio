@@ -44,7 +44,7 @@ class App extends React.Component {
               ({route, plugin, toggleRoute}) => {
                 if(route === HOME) {
                   if(plugin) {
-                    return (<PluginView></PluginView>)
+                    return (<PluginView plugin={plugin}></PluginView>)
                   }else {
                     return (<PluginList></PluginList>);
                   }
