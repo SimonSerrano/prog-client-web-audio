@@ -41,16 +41,12 @@ class PluginView extends React.Component {
                                     </div>
                                     <div className="card_item">
                                         <div className="subtitle">
-                                            Labels :
+                                            Catégories :
                                         </div>
 
                                         <div className="labels">
-                                            <li>ceci</li>
+                                            <li>Distortion</li>
                                             <li>est</li>
-                                            <li>un</li>
-                                            <li>plugin</li>
-                                            <li>ouai</li>
-                                            <li>gros</li>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +88,7 @@ this._deletePlugin(this.plugin._id)}}> Supprimer
     }
 
     _buildModal(element) {
-        document.querySelectorAll('.header')[0].appendChild(element);
+        document.querySelectorAll('.wrapper')[0].appendChild(element);
     }
 
     async _getPluginUrl() {
