@@ -7,7 +7,6 @@ import { API, PLUGINS_ROUTE } from '../../constants/constant';
 import PluginsService from '../../utils/services/PluginsService';
 import CommentList from '../comment-list/CommentList';
 import PluginCommentForm from '../plugin-comment-form/PluginCommentForm';
-import RouteContext from '../../context/RouteContext';
 import Spinner from '../spinner/Spinner';
 
 class PluginView extends React.Component {
@@ -24,9 +23,7 @@ class PluginView extends React.Component {
     }
 
     render() {
-        return (
-            <RouteContext.Consumer>{
-                ({ toggleRoute }) => {
+        
                     return (
                         <div className="wrapper">
                             <div className="header">
@@ -72,8 +69,7 @@ class PluginView extends React.Component {
                             </div>
                             <div className="footer_buttons">
                                 <div className="btn" onClick={(e) => {
-                                    this._deletePlugin(this.plugin._id).then(
-                                        toggleRoute(undefined, undefined))}}> Supprimer
+                                    this._deletePlugin(this.plugin._id)}}> Supprimer
                                 </div>
                             </div>
                             <PluginCommentForm pluginId={this.plugin._id}></PluginCommentForm>
@@ -83,10 +79,7 @@ class PluginView extends React.Component {
                                 :<div></div>
                             }
                         </div>
-                    )
-                }}
-            </RouteContext.Consumer>
-        );
+                    );
     }
 
     _buildModal(element) {
