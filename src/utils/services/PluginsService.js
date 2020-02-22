@@ -4,12 +4,17 @@ class PluginsService {
 
 
     postPlugin({ name, version, description, image, zip }) {
-        const headers = new Headers({ 'Content-Type': 'application/json', mode: 'no-cors' });
+        const headers = new Headers({ mode: 'no-cors', enctype: "multipart/form-data" });
+        const form = new FormData();
+        form.append("name", name);
+        form.append("version", version);
+        form.append("description", description);
+        form.append("image", image);
+        form.append("zip", zip);
         const request = new Request(API + PLUGINS_ROUTE, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ name, version, description, image, zip }),
-            files: [image, zip]
+            body: form,
         });
         return fetch(request);
     }

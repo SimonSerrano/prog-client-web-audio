@@ -13,8 +13,8 @@ class PluginForm extends React.Component {
             version: '',
             description: '',
             error: '',
-            image: '',
-            zip: '',
+            image: null,
+            zip: null,
         }
     }
 
@@ -39,7 +39,7 @@ class PluginForm extends React.Component {
                             <label htmlFor="pluginVersion">Version du plugin</label>
                         </div>
                         <div className="input-container input-margin">
-                            <input type="textarea" id="pluginDescription" name="pluginDescription" required value={this.state.description}
+                            <input type="text" id="pluginDescription" name="pluginDescription" required value={this.state.description}
                                 onChange={(e) => this._descriptionChange(e)} />
                             <label htmlFor="pluginDescription">Description du plugin</label>
                         </div>
@@ -77,15 +77,16 @@ class PluginForm extends React.Component {
     _zipChangedHandler = (e) => {
         const file = e.target.files[0];
         this.setState({zip: file});
-
     }
 
     _imageChangedHandler = (e) => {
-        const file = e.target.files[0]
+        const file = e.target.files[0];
         this.setState({ image: file });
     }
 
     _nameChange(e) {
+
+
         this.setState({ name: e.target.value });
     }
 
@@ -121,6 +122,7 @@ class PluginForm extends React.Component {
         const service = new PluginsService();
         service.postPlugin(this.state).then(res => {
             this.setState({ name: '', version: '', description: '', error: '', image: '', zip: '' });
+            console.log(res);
         }).catch(err => {
             console.log(err);
         });

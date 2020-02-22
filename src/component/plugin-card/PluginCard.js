@@ -12,24 +12,24 @@ class PluginCard extends React.Component {
         return (
             <RouteContext.Consumer>
                 {
-                    ({toggleRoute}) => {
+                    ({ toggleRoute }) => {
                         return (<div className='lg4 flex-container wrap' >
-                        <div className='flex-container column plugin '>
-                            <div className='title'>
-                                {this.props.plugin.name}
-                            </div>
-                            <div className='type'>
-                                {this.props.plugin.version}
-                            </div>
-                            <div className='img'>
-                                <img alt="plugins' icon" src={"logo192.png"} />
-                            </div>
-                            <div className='foot'>
-                            <div className="btn" onClick={(e) => toggleRoute(undefined, {})}>Essayer</div>
-                            </div>
+                            <div className='flex-container column plugin '>
+                                <div className='title'>
+                                    {this.props.plugin.name}
+                                </div>
+                                <div className='type'>
+                                    {this.props.plugin.version}
+                                </div>
+                                <div className='img'>
+                                    <img alt="plugins' icon" src={"http://localhost:10000/users/file/" + this.props.plugin.filename} />
+                                </div>
+                                <div className='foot'>
+                                    <div className="btn" onClick={(e) => toggleRoute(undefined, {})}>Essayer</div>
+                                </div>
 
-                        </div>
-                    </div>)
+                            </div>
+                        </div>)
                     }
                 }
             </RouteContext.Consumer>
