@@ -19,6 +19,8 @@ class WebAudio extends React.Component {
         i: 72,
     }
 
+    buttonRef;
+
 
     constructor(props) {
         super(props);
@@ -29,8 +31,7 @@ class WebAudio extends React.Component {
             oscillator: null,
             isStarted: false
         };
-        document.addEventListener('keydown', this._keyDownListener.bind(this));
-        document.addEventListener('keyup', this._keyUpListener.bind(this));
+        this.buttonRef = React.createRef();
     }
 
     _keyDownListener(e) {
@@ -47,7 +48,7 @@ class WebAudio extends React.Component {
 
     render() {
         return (
-            <div className="flex-container column">
+            <div ref={this.buttonRef} className="flex-container column">
                 {
                     this.renderButton()
                 }
@@ -82,6 +83,10 @@ class WebAudio extends React.Component {
 
     async componentDidMount() {
         if (this.props.baseUrl) {
+            this.buttonRef.current.addEventListener('keydown', this._keyDownListener.bind(this));
+            this.buttonRef.current.addEventListener('keyup', this._keyUpListener.bind(this));
+
+
             const scriptLoader = new ScriptLoader();
             try {
                 await scriptLoader.loadSDK()
@@ -98,8 +103,8 @@ class WebAudio extends React.Component {
     }
 
     componentWillUnmount() {
-        document.removeEventListener('keyup', this._keyUpListener.bind(this));
-        document.removeEventListener('keydown', this._keyDownListener.bind(this));
+        this.buttonRef.current.removeEventListener('keyup', this._keyUpListener.bind(this));
+        this.buttonRef.current.removeEventListener('keydown', this._keyDownListener.bind(this));
     }
 
     async _onPlay() {
