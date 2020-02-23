@@ -1,0 +1,16 @@
+.checkbox{
+    display: flex;
+    flex-direction: row;
+   justify-content: flex-start;
+   align-items: center;
+}
+.boxCategory{
+    width:30px;
+}
+.nameCategory{
+    width:100px;
+    
+}
+input{
+    margin:0;
+}

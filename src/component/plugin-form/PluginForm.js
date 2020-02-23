@@ -20,21 +20,26 @@ class PluginForm extends React.Component {
             zip: null,
         }
     }
-      
+
 
     handleChange(e) {
         const item = e.target.value;
         const isChecked = e.target.checked;
         this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
-      }
+    }
 
     render() {
         return (
             <div className="flex-container column justify-center align-center fill-height margin">
-                <div className="xs12 fill-height">
-                    <h4>Ajouter un plugin</h4>
+
+
+                <div className="xs12 fill-height" style={{ width: '75%',margin:'50px 0 50px 0' }}>
+                    <div className="plugin_form_title">
+                        Ajouter un plugin
                 </div>
-                <div className="xs12 fill-height" style={{ width: '75%' }}>
+                    <div className="plugin_form_subtitle">
+                        Informations
+                </div>
                     <form name='pluginForm'>
 
                         <div className="input-container input-margin">
@@ -52,11 +57,20 @@ class PluginForm extends React.Component {
                                 onChange={(e) => this._descriptionChange(e)} />
                             <label htmlFor="pluginDescription">Description du plugin</label>
                         </div>
-                        {
-                            categories.map((categorie) => {
-                                return (<CheckBox handleChange={(e) => this.handleChange(e)}  {...categorie} />)
-                            })
-                        }
+                        <div className="plugin_form_subtitle">
+                            Catégories
+                </div>
+                        <div className="categoriesInput">
+
+                            {
+                                categories.map((categorie) => {
+                                    return (<CheckBox handleChange={(e) => this.handleChange(e)}  {...categorie} />)
+                                })
+                            }
+                        </div>
+                        <div className="plugin_form_subtitle">
+                            Fichiers
+                </div>
                         <div className={`input-container input-margin ${this.state.image ? 'active' : ''}`}>
                             <input name="pluginImage" value={this.state.image?.name || ''} type='text' readOnly required />
                             <label htmlFor="pluginImage">Image du plugin</label>
@@ -69,7 +83,7 @@ class PluginForm extends React.Component {
                         </div>
                     </form>
 
-                    <div className="flex-container space-between align-center">
+                    <div className="flex-container">
                         <div className="xs12">
                             {this.state.error ?
 
@@ -79,8 +93,8 @@ class PluginForm extends React.Component {
                                 ''
                             }
                         </div>
-                        <div className="xs12">
-                            <div className="btn" type="submit" value="Submit" onClick={(e) => this._submit()}>Valider</div>
+                        <div className="">
+                            <div className="btn left" type="submit" value="Submit" onClick={(e) => this._submit()}>Valider</div>
                         </div>
                     </div>
                 </div>
@@ -90,7 +104,7 @@ class PluginForm extends React.Component {
 
     _zipChangedHandler = (e) => {
         const file = e.target.files[0];
-        this.setState({zip: file});
+        this.setState({ zip: file });
     }
 
     _imageChangedHandler = (e) => {
@@ -125,25 +139,25 @@ class PluginForm extends React.Component {
             this.setState({ error: 'Description manquante' });
             return;
         }
-        if(this.state.checkedItems.size === 0) {
-            this.setState({error: 'Au moins une catégorie doit être spécifiée'});
+        if (this.state.checkedItems.size === 0) {
+            this.setState({ error: 'Au moins une catégorie doit être spécifiée' });
             return;
         }
-        if(!this.state.image) {
-            this.setState({error: 'Image manquante'});
+        if (!this.state.image) {
+            this.setState({ error: 'Image manquante' });
             return;
         }
-        if(!this.state.zip) {
-            this.setState({error: 'Zip manquant'});
+        if (!this.state.zip) {
+            this.setState({ error: 'Zip manquant' });
             return;
         }
         const categories = [];
         this.state.checkedItems.forEach((categorie, value) => {   //Tres chelou ce truc
-            if(categorie == true){
+            if (categorie == true) {
                 categories.push(value);                           // Mais ca a l air de marcher
             }
         });
-        this.setState({categories: categories});
+        this.setState({ categories: categories });
         console.log(this.state);
         const service = new PluginsService();
         service.postPlugin(this.state).then(res => {
