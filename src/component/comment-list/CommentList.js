@@ -12,7 +12,7 @@ class CommentList extends React.Component {
 
                 {this.props.comments ?
                     <div className="wrapper-list">
-                        <div className="comments_title">
+                        <div className="plugin_view_subtitle">
                             Commentaires
                         </div>
                         {this.props.comments.map((comment, index) => {
