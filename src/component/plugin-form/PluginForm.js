@@ -3,6 +3,8 @@ import '../../styles/buttons.css';
 import '../../styles/inputs.css';
 import './plugin-form.css';
 import PluginsService from '../../utils/services/PluginsService';
+import CheckBox from '../checkBox/CheckBox';
+import categories from '../../categories';
 
 class PluginForm extends React.Component {
 
@@ -14,10 +16,17 @@ class PluginForm extends React.Component {
             description: '',
             error: '',
             image: null,
+            checkedItems: new Map(),
             zip: null,
         }
     }
+      
 
+    handleChange(e) {
+        const item = e.target.value;
+        const isChecked = e.target.checked;
+        this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
+      }
 
     render() {
         return (
@@ -43,6 +52,11 @@ class PluginForm extends React.Component {
                                 onChange={(e) => this._descriptionChange(e)} />
                             <label htmlFor="pluginDescription">Description du plugin</label>
                         </div>
+                        {
+                            categories.map((categorie) => {
+                                return (<CheckBox handleChange={(e) => this.handleChange(e)}  {...categorie} />)
+                            })
+                        }
                         <div className={`input-container input-margin ${this.state.image ? 'active' : ''}`}>
                             <input name="pluginImage" value={this.state.image?.name || ''} type='text' readOnly required />
                             <label htmlFor="pluginImage">Image du plugin</label>
@@ -111,6 +125,10 @@ class PluginForm extends React.Component {
             this.setState({ error: 'Description manquante' });
             return;
         }
+        if(this.state.checkedItems.size === 0) {
+            this.setState({error: 'Au moins une catégorie doit être spécifiée'});
+            return;
+        }
         if(!this.state.image) {
             this.setState({error: 'Image manquante'});
             return;
@@ -119,9 +137,17 @@ class PluginForm extends React.Component {
             this.setState({error: 'Zip manquant'});
             return;
         }
+        const categories = [];
+        this.state.checkedItems.forEach((categorie, value) => {   //Tres chelou ce truc
+            if(categorie == true){
+                categories.push(value);                           // Mais ca a l air de marcher
+            }
+        });
+        this.setState({categories: categories});
+        console.log(this.state);
         const service = new PluginsService();
         service.postPlugin(this.state).then(res => {
-            this.setState({ name: '', version: '', description: '', error: '', image: '', zip: '' });
+            this.setState({ name: '', version: '', description: '', error: '', image: '', zip: '', categories: [], checkedItems: new Map(), });
             console.log(res);
         }).catch(err => {
             console.log(err);
