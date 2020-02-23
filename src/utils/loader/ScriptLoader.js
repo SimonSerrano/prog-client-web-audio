@@ -57,7 +57,9 @@ class ScriptLoader {
         const gui = document.querySelector(`link[href="${mainHTMLPath}"]`);
         const head = document.querySelector('head');
         head.removeChild(script);
-        head.removeChild(gui);
+        if(gui) {
+            head.removeChild(gui);
+        }
     }
 }
 

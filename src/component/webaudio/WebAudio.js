@@ -1,7 +1,7 @@
 import React from 'react';
 import ScriptLoader from '../../utils/loader/ScriptLoader';
 import Spinner from '../spinner/Spinner';
-import {API} from '../../constants/constant';
+import { API } from '../../constants/constant';
 
 
 
@@ -54,14 +54,17 @@ class WebAudio extends React.Component {
         }
     }
 
-    
+
 
     componentWillUnmount() {
-        const scriptLoader = new ScriptLoader();
-        scriptLoader.removeSDK();
-        scriptLoader.removePlugin(this.props.baseUrl);
+        if (this.state.plugin) {
+            const scriptLoader = new ScriptLoader();
+            scriptLoader.removeSDK();
+            scriptLoader.removePlugin(this.props.baseUrl);
+        }
+
     }
-    
+
 
     async componentDidMount() {
         if (this.props.baseUrl) {
@@ -84,7 +87,7 @@ class WebAudio extends React.Component {
         }
     }
 
-    
+
 
     async _onPlay() {
         if (navigator.requestMIDIAccess) {
