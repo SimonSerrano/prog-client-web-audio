@@ -1,23 +1,13 @@
 import React from 'react';
 import ScriptLoader from '../../utils/loader/ScriptLoader';
 import Spinner from '../spinner/Spinner';
-import {API} from '../../constants/constant';
+import { API } from '../../constants/constant';
 
 
 
 class WebAudio extends React.Component {
 
 
-    emulatedKeys = {
-        a: 60,
-        z: 62,
-        e: 64,
-        r: 65,
-        t: 67,
-        y: 69,
-        u: 71,
-        i: 72,
-    }
 
 
     constructor(props) {
@@ -27,15 +17,13 @@ class WebAudio extends React.Component {
             source: null,
             audioContext: new (window.AudioContext || window.webkitAudioContext)(),
             oscillator: null,
-            isStarted: false,
-            plugin: null
-        }
-
+            isStarted: false
+        };
     }
 
     render() {
         return (
-            <div className="flex-container column">
+            <div ref={this.buttonRef} className="flex-container column">
                 {
                     this.renderButton()
                 }
@@ -66,15 +54,29 @@ class WebAudio extends React.Component {
         }
     }
 
-    
+
+
+    componentWillUnmount() {
+        if (this.state.plugin) {
+            const scriptLoader = new ScriptLoader();
+            scriptLoader.removeSDK();
+            scriptLoader.removePlugin(this.props.baseUrl);
+        }
+
+    }
+
 
     async componentDidMount() {
         if (this.props.baseUrl) {
+            // this.buttonRef.current.addEventListener('keydown', this._keyDownListener.bind(this));
+            // this.buttonRef.current.addEventListener('keyup', this._keyUpListener.bind(this));
+
+
             const scriptLoader = new ScriptLoader();
             try {
                 await scriptLoader.loadSDK()
                 const plugin = await scriptLoader
-                    .loadPlugin(this.state.audioContext, API + this.props.baseUrl);
+                    .loadPlugin(this.state.audioContext, this.props.baseUrl);
                 if (plugin) {
                     this.setState({ plugin: plugin });
                 }
@@ -84,6 +86,8 @@ class WebAudio extends React.Component {
             }
         }
     }
+
+
 
     async _onPlay() {
         if (navigator.requestMIDIAccess) {
@@ -123,24 +127,13 @@ class WebAudio extends React.Component {
         try {
             const node = await this.state.plugin.load();
             if (node) {
-                // this.state.audioContext.source.connect(this.state.oscillator);
                 this.state.oscillator.connect(node);
                 node.connect(this.state.audioContext.destination);
                 const el = await this.state.plugin.loadGui();
-                document.querySelectorAll('#WAP')[0].appendChild(el);
+                this.props.guiCallback(el);
                 for (const input of res.inputs.values()) {
                     input.onmidimessage = this._onMidiMessage.bind(this);
                 }
-                document.addEventListener('keydown', (e) => {
-                    if (this.emulatedKeys.hasOwnProperty(e.key)) {
-                        this._noteOn(this.emulatedKeys[e.key]);
-                    }
-                });
-                document.addEventListener('keyup', (e) => {
-                    if (this.emulatedKeys.hasOwnProperty(e.key)) {
-                        this._noteOff();
-                    }
-                });
             }
         } catch (err) {
             console.log(err);

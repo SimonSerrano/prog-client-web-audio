@@ -1,12 +1,22 @@
-.wrapper{
-    display:flex;
-    margin:50px 20vw;
-    flex-direction: column;
+@media screen and (max-width: 640px) {
+    .wrapper{
+        display:flex;
+        margin:50px 20px;
+        flex-direction: column;
+    }
+  }
+
+@media screen and (min-width: 641px) {
+    .wrapper{
+        display:flex;
+        margin:50px 20vw;
+        flex-direction: column;
+    }
 }
 .card{
     display:flex;
     flex-direction: row;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 .header{
     display:flex;
@@ -17,6 +27,7 @@
 .title { 
     font-size: 2em;
     font-weight: 600;
+    margin-bottom: 10px;
 }
 .button{
     background-color: var(--primary);
@@ -54,8 +65,17 @@ li{
 ul{
     padding-left:0;
 }
+.description{
+    margin:10px 0;
+}
 .description_title{
-    color:var(--primary);
-    margin-bottom:10px;
-    font-size: 1.5em;
+    margin:10px 0;
+    color: var(--primary);
+}
+.footer_buttons{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;}
+.footer_buttons>*{
+    margin-left: 20px;
 }

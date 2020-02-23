@@ -19,17 +19,25 @@ class ScriptLoader {
         });
     }
 
+    removeSDK() {
+        const sdkPath = API + SDK_ROUTE;
+        const tag = document.querySelector(`script[src="${sdkPath}"]`);
+        const head = document.querySelector('head');
+        head.removeChild(tag);
+    }
+
     loadPlugin(audioContext, baseUrl) {
+        const url = API + baseUrl;
         return new Promise((resolve, reject) => {
             const tag = document.createElement('script');
-            tag.src = `${baseUrl}/main.js`;
+            tag.src = `${url}/main.js`;
             tag.onload = async () => {
                 const service = new PluginsService();
                 try {
-                    const metadata = await service.getPluginMetadata(baseUrl);
+                    const metadata = await service.getPluginMetadata(url);
                     if (metadata) {
                         const className = metadata.vendor + metadata.name;
-                        resolve(new window[className](audioContext, baseUrl));
+                        resolve(new window[className](audioContext, url));
                     }
                 } catch (err) {
                     reject(err);
@@ -40,6 +48,18 @@ class ScriptLoader {
             };
             document.head.appendChild(tag);
         });
+    }
+
+    removePlugin(baseUrl) {
+        const mainJSPath = API + baseUrl + "/main.js";
+        const mainHTMLPath = API + baseUrl + "/main.html";
+        const script = document.querySelector(`script[src="${mainJSPath}"]`);
+        const gui = document.querySelector(`link[href="${mainHTMLPath}"]`);
+        const head = document.querySelector('head');
+        head.removeChild(script);
+        if(gui) {
+            head.removeChild(gui);
+        }
     }
 }
 
