@@ -1,4 +1,25 @@
-.input-margin {
-    margin-top: 20px;
-    margin-bottom: 20px;
+
+.categoriesInput{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.plugin_form_subtitle{
+    text-align:left;
+    font-weight: 700;
+    font-size:1.5em;
+    margin: 50px 0 10px 0px;
+    padding: 5px;
+    border-left: solid 5px var(--primary);
+}
+
+.plugin_form_title{
+    text-align:left;
+    width:100%;
+    font-weight: 700;
+    font-size:2em;
+    margin: 40px 0 20px 0;
+}
+.left{
+    float:left;
 }
