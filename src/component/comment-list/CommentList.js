@@ -4,19 +4,23 @@ import CommentCard from '../comment-card/CommentCard';
 
 class CommentList extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+    
 
     render() {
         return (
             <>
-                { this.props.comments ?
-                <div className="flex-container align-start wrap">
-                    {this.props.comments.map((comment, index) => {
-                        return (<CommentCard key={index} comment={comment}></CommentCard>);
-                    })}
-                </div> : <div></div>
+
+                {this.props.comments ?
+                    <div className="wrapper-list">
+                        <div className="comments_title">
+                            Commentaires
+                        </div>
+                        {this.props.comments.map((comment, index) => {
+                            return (<CommentCard key={index} comment={comment}></CommentCard>);
+                        })}
+                    </div> : <div>
+                        Aucun commentaire
+                </div>
                 }
             </>
         );

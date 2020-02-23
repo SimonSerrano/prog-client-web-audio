@@ -2,62 +2,38 @@ import React from 'react';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 import Layout from './component/layout/Layout';
-import Navbar from './component/navbar/Navbar';
-import Sidebar from './component/sidebar/Sidebar';
 import Content from './component/content/Content';
 import PluginList from './component/plugin-list/PluginList';
-import SidebarContext from './context/SidebarContext';
 import PluginForm from './component/plugin-form/PluginForm';
 import PluginView from './component/plugin-view/PluginView';
-import RouteContext from './context/RouteContext';
-import { HOME, ADD_PLUGIN } from './constants/routes';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import withAuth from "./utils/withAuth";
+import LoginForm from "./component/login-form/LoginForm";
+import NavigationWrapper from './component/navigation-wrapper/NavigationWrapper';
+import LoginCreation from "./component/login-creation/LoginCreation";
 
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.toggleSidebar = () => {
-      this.setState(state => ({
-        open: !state.open
-      }));
-    };
-
-    this.state = {
-      open: false,
-      toggleSidebar: this.toggleSidebar
-    };
-
-  }
 
   render() {
     return (
       <Layout>
-        <SidebarContext.Provider value={this.state}>
-          <Navbar></Navbar>
-          <Sidebar></Sidebar>
-        </SidebarContext.Provider>
-        <Content>
-          <RouteContext.Consumer>
-            {
-              ({route, plugin, toggleRoute}) => {
-                if(route === HOME) {
-                  if(plugin) {
-                    return (<PluginView plugin={plugin}></PluginView>)
-                  }else {
-                    return (<PluginList></PluginList>);
-                  }
-                }else if(route === ADD_PLUGIN) {
-                  return (<PluginForm></PluginForm>);
-                }else {
-                  toggleRoute(HOME);
-                }
-              }
-            }
-          </RouteContext.Consumer>
-        </Content>
-      </Layout>
+        <BrowserRouter>
+          <NavigationWrapper></NavigationWrapper>
+          <Content>
+            <Switch>
+              <Route path="/home" component={PluginList} />
+              <Route path="/pluginView" component={PluginView} />
+              <Route path="/add-plugin" component={withAuth(PluginForm)} />
+              <Route path="/createAccount" component={LoginCreation} />
+              <Route path="/login" component={LoginForm} />
+              <Redirect from='/' to='/home'/>
+            </Switch>
+          </Content>
+
+        </BrowserRouter>
+      </Layout >
     );
   }
 
