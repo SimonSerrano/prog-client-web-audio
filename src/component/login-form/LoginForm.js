@@ -83,7 +83,7 @@ class LoginForm extends React.Component{
                     response.json().then( data => {
                         Cookies.set('access_token', data['token']);
                         Cookies.set('username',data['name']);
-                        this.props.history.push('/home');
+                        this.props.history.push('/add-plugin');
 
                     });
 
