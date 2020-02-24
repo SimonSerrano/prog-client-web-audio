@@ -20,8 +20,8 @@ class PluginCommentForm extends React.Component {
     render() {
         return (
             <div className="flex-container column justify-center align-left fill-height">
-                <div className="add_comment">
-                    <h4>Ajouter un commentaire</h4>
+                <div className="plugin_view_subtitle">
+                    Ajouter un commentaire
                 </div>
                 <div className="xs12 fill-height" style={{width: '100%'}}>
                     <form name='pluginCommentForm'>
