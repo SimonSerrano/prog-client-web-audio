@@ -1,7 +1,6 @@
 import React from 'react';
 import ScriptLoader from '../../utils/loader/ScriptLoader';
 import Spinner from '../spinner/Spinner';
-import { API } from '../../constants/constant';
 
 
 
@@ -56,11 +55,12 @@ class WebAudio extends React.Component {
 
 
 
-    componentWillUnmount() {
+    async componentWillUnmount() {
         if (this.state.plugin) {
             const scriptLoader = new ScriptLoader();
             scriptLoader.removeSDK();
             scriptLoader.removePlugin(this.props.baseUrl);
+            await this.state.audioContext.close();
         }
 
     }

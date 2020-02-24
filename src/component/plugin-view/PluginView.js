@@ -45,37 +45,41 @@ class PluginView extends React.Component {
                                         </div>
 
                                         <div className="labels">
-                                            <li>Distortion</li>
-                                            <li>est</li>
+                                        {this.plugin.categories?
+                                            this.plugin.categories.split(",").map((categorie) => {
+                                                return (<li>{categorie}</li>)
+                                            }):""
+                                        }
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="description">
-                                <div className="description_title">
-                                    Description :
-                                </div>
-                                <div className="description_body">
-                                    {this.plugin.description}
                                 </div>
                             </div>
                             <div className="footer_buttons">
 
 
-                                <div className="btn" onClick={(e) => {
+<div className="btn" onClick={(e) => {
 this._deletePlugin(this.plugin._id)}}> Supprimer
 
-                                
+
+</div>
+<div>
+    {
+        this.state.baseUrl ?
+            <WebAudio guiCallback={this._buildModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
+            :
+            <Spinner></Spinner>
+    }
+</div>
+</div>
+                            <div className="description">
+                                <div className="plugin_view_subtitle">
+                                    Description
                                 </div>
-                                <div>
-                                    {
-                                        this.state.baseUrl ?
-                                            <WebAudio guiCallback={this._buildModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
-                                            :
-                                            <Spinner></Spinner>
-                                    }
+                                <div className="description_body">
+                                    {this.plugin.description}
                                 </div>
                             </div>
+
                             {
                                 this.plugin.comments ?
                                     <CommentList comments={this.plugin.comments}></CommentList>

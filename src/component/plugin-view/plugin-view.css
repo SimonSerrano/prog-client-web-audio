@@ -79,3 +79,14 @@ justify-content: flex-end;}
 .footer_buttons>*{
     margin-left: 20px;
 }
+.plugin_view_subtitle{
+    text-align:left;
+    font-weight: 700;
+    font-size:1.5em;
+    margin: 20px 0 10px 0px;
+    padding: 5px;
+    border-left: solid 5px var(--primary);
+}
+.description_body{
+    margin-top:20px;
+}
