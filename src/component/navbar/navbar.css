@@ -3,6 +3,7 @@
     grid-row: 1 / 2;
     box-shadow: 0px 6px 3px #e0e0e0;
     position: fixed;
+    z-index: 101;
     width:100%;
 }
 
@@ -39,4 +40,7 @@ p {
 }
 .username i{
     color:white;
+}
+.username p{
+    margin:20px 10px;
 }

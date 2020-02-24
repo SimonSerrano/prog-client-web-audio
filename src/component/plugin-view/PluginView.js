@@ -24,53 +24,49 @@ class PluginView extends React.Component {
     }
 
     render() {
-
         return (
             <div className="wrapper">
-                    <Link to={{
-                        pathname: "/home",
-                        state: {
-                        }
-                    }}>
-                        <div className="retour">
+                <Link to={{
+                    pathname: "/home",
+                    state: {
+                    }
+                }}>
+                    <div className="retour">
                         Retour
 
                         </div>
-                    </Link>
+                </Link>
                 <div className="card">
                     <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.plugin._id}/image`} height="20%" width="20%" />
                     <div className="card_items">
                         <div className="title">{this.plugin.name}</div>
-
-                        <div className="card_item">
                             <div className="card_subtitle">
                                 Version :
-                                </div>
-                            <div className="inside">
-                                {this.plugin.version}
                             </div>
+                        <div className="inside">
+                            {this.plugin.version}
                         </div>
-                        <div className="card_item">
                             <div className="card_subtitle">
                                 Catégories :
-                                        </div>
-
+                         </div>
                             <div className="labels">
-                                <li>Distortion</li>
-                                <li>est</li>
-                            </div>
+                                {this.plugin.categories ?
+                                    this.plugin.categories.split(",").map((categorie) => {
+                                        return (<li>{categorie}</li>)
+                                    }) : ""
+                                }
                         </div>
                     </div>
+
                 </div>
                 <div className="footer_buttons">
 
 
                     <div className="btn" onClick={(e) => {
                         this._deletePlugin(this.plugin._id)
-                    }}> Supprimer
-                        
-                        
-</div>
+                    }}>
+                        Supprimer
+                </div>
                     <div>
                         {
                             this.state.baseUrl ?
@@ -126,8 +122,8 @@ class PluginView extends React.Component {
         })
 
     }
-    _back(){} 
-    
+    _back() { }
+
 }
 
 export default PluginView;

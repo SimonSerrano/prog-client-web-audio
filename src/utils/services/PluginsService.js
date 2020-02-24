@@ -3,13 +3,15 @@ import { API, PLUGINS_ROUTE } from '../../constants/constant';
 class PluginsService {
 
 
-    postPlugin({ name, version, description, categories, image, zip }) {
+    postPlugin({ name, version, description, categories, isOpenSource, image, zip }) {
+        console.log(categories);
         const headers = new Headers({ mode: 'no-cors', enctype: "multipart/form-data" });
         const form = new FormData();
         form.append("name", name);
         form.append("version", version);
         form.append("description", description);
         form.append("categories", categories);
+        form.append("isOpenSource", isOpenSource);
         form.append("image", image);
         form.append("zip", zip);
         const request = new Request(API + PLUGINS_ROUTE, {

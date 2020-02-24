@@ -4,8 +4,10 @@ import '../../styles/inputs.css';
 import './plugin-form.css';
 import PluginsService from '../../utils/services/PluginsService';
 import CheckBox from '../checkBox/CheckBox';
-import categories from '../../categories';
+import categories from '../../pluginCategories';
 import { Link } from 'react-router-dom';
+import pluginCategories from '../../pluginCategories';
+
 class PluginForm extends React.Component {
 
     constructor(props) {
@@ -17,6 +19,7 @@ class PluginForm extends React.Component {
             error: '',
             image: null,
             checkedItems: new Map(),
+            isOpenSource: false,
             zip: null,
         }
     }
@@ -69,18 +72,22 @@ class PluginForm extends React.Component {
                         </div>
                         <div className="subtitle">
                             Catégories
-                </div>
+                        </div>
                         <div className="categoriesInput">
 
                             {
-                                categories.map((categorie) => {
+                                pluginCategories.map((categorie) => {
                                     return (<CheckBox handleChange={(e) => this.handleChange(e)}  {...categorie} />)
                                 })
                             }
                         </div>
                         <div className="subtitle">
+                            Open Source
+                        </div>
+                        <CheckBox handleChange={(e) => this._openSourceChange(e)}  {...{name: "Le plugin est open source"}} />
+                        <div className="subtitle">
                             Fichiers
-                </div>
+                        </div>
                         <div className={`input-container input-margin ${this.state.image ? 'active' : ''}`}>
                             <input name="pluginImage" value={this.state.image?.name || ''} type='text' readOnly required />
                             <label htmlFor="pluginImage">Image du plugin</label>
@@ -123,8 +130,6 @@ class PluginForm extends React.Component {
     }
 
     _nameChange(e) {
-
-
         this.setState({ name: e.target.value });
     }
 
@@ -134,6 +139,10 @@ class PluginForm extends React.Component {
 
     _descriptionChange(e) {
         this.setState({ description: e.target.value });
+    }
+
+    _openSourceChange(e) {
+        this.setState({isOpenSource: !this.state.isOpenSource});
     }
 
     _submit() {
@@ -167,11 +176,11 @@ class PluginForm extends React.Component {
                 categories.push(value);                           // Mais ca a l air de marcher
             }
         });
-        this.setState({ categories: categories });
-        console.log(this.state);
         const service = new PluginsService();
+        const plugin = this.state;
+        plugin.categories = categories;
         service.postPlugin(this.state).then(res => {
-            this.setState({ name: '', version: '', description: '', error: '', image: '', zip: '', categories: [], checkedItems: new Map(), });
+            this.setState({ name: '', version: '', description: '', error: '', image: '', zip: '', isOpenSource: false, checkedItems: new Map(), });
             console.log(res);
         }).catch(err => {
             console.log(err);

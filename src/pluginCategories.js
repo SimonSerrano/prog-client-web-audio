@@ -1,4 +1,4 @@
-const categories = [
+const pluginCategories = [
     {
         name: 'modulation',
         key: 'checkBox1',
@@ -21,4 +21,4 @@ const categories = [
       },
   ];
   
-  export default categories;
+  export default pluginCategories;
