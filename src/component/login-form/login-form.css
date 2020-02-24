@@ -1,0 +1,9 @@
+.avatar{
+    width: 5em;
+    height: 5em;
+    margin: 1em;
+}
+.description{
+    border-top: #c45ccb 2px;
+    width: 50%;
+}
