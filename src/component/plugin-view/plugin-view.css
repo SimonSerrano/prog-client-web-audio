@@ -1,4 +1,4 @@
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 800px) {
     .wrapper{
         display:flex;
         margin:50px 20px;
@@ -6,7 +6,7 @@
     }
   }
 
-@media screen and (min-width: 641px) {
+@media screen and (min-width: 800px) {
     .wrapper{
         display:flex;
         margin:50px 20vw;
@@ -42,9 +42,7 @@
 .card_item{
     margin-bottom: 10px;
 }
-.subtitle{
-    color: var(--primary);
-}
+
 .inside{
     font-size: 1.2em;
     font-weight: 600;
@@ -79,14 +77,29 @@ justify-content: flex-end;}
 .footer_buttons>*{
     margin-left: 20px;
 }
-.plugin_view_subtitle{
+.subtitle{
     text-align:left;
     font-weight: 700;
     font-size:1.5em;
     margin: 20px 0 10px 0px;
-    padding: 5px;
+    padding: 5px 10px;
     border-left: solid 5px var(--primary);
+}
+.card_subtitle{
+    text-align:left;
+    font-weight: 700;
+    font-size:1.1em;
+    margin: 5px 0 ;
+    color:var(--primary);
 }
 .description_body{
     margin-top:20px;
+}
+.retour{
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--primary);
+    margin:0 0 20px;
+    text-decoration: none;
+
 }

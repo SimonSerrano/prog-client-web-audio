@@ -5,7 +5,7 @@ import './plugin-form.css';
 import PluginsService from '../../utils/services/PluginsService';
 import CheckBox from '../checkBox/CheckBox';
 import categories from '../../categories';
-
+import { Link } from 'react-router-dom';
 class PluginForm extends React.Component {
 
     constructor(props) {
@@ -30,14 +30,24 @@ class PluginForm extends React.Component {
 
     render() {
         return (
-            <div className="flex-container column justify-center align-center fill-height margin">
+            <div className="flex-container column">
 
 
-                <div className="xs12 fill-height" style={{ width: '75%',margin:'50px 0 50px 0' }}>
+                <div className="wrapper">
+                <Link to={{
+                    pathname: "/home",
+                    state: {
+                    }
+                }}>
+                    <div className="retour">
+                        Retour
+
+                        </div>
+                </Link>
                     <div className="plugin_form_title">
                         Ajouter un plugin
                 </div>
-                    <div className="plugin_form_subtitle">
+                    <div className="subtitle">
                         Informations
                 </div>
                     <form name='pluginForm'>
@@ -57,7 +67,7 @@ class PluginForm extends React.Component {
                                 onChange={(e) => this._descriptionChange(e)} />
                             <label htmlFor="pluginDescription">Description du plugin</label>
                         </div>
-                        <div className="plugin_form_subtitle">
+                        <div className="subtitle">
                             Catégories
                 </div>
                         <div className="categoriesInput">
@@ -68,7 +78,7 @@ class PluginForm extends React.Component {
                                 })
                             }
                         </div>
-                        <div className="plugin_form_subtitle">
+                        <div className="subtitle">
                             Fichiers
                 </div>
                         <div className={`input-container input-margin ${this.state.image ? 'active' : ''}`}>

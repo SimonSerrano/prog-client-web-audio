@@ -8,6 +8,7 @@ import PluginsService from '../../utils/services/PluginsService';
 import CommentList from '../comment-list/CommentList';
 import PluginCommentForm from '../plugin-comment-form/PluginCommentForm';
 import Spinner from '../spinner/Spinner';
+import { Link } from 'react-router-dom';
 
 class PluginView extends React.Component {
 
@@ -23,69 +24,80 @@ class PluginView extends React.Component {
     }
 
     render() {
-        
-                    return (
-                        <div className="wrapper">
-                            <div className="card">
-                                <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.plugin._id}/image`} height="20%" width="20%" />
-                                <div className="card_items">
-                                    <div className="title">{this.plugin.name}</div>
 
-                                    <div className="card_item">
-                                        <div className="subtitle">
-                                            Version :
-                                </div>
-                                        <div className="inside">
-                                            {this.plugin.version}
-                                        </div>
-                                    </div>
-                                    <div className="card_item">
-                                        <div className="subtitle">
-                                            Catégories :
-                                        </div>
+        return (
+            <div className="wrapper">
+                    <Link to={{
+                        pathname: "/home",
+                        state: {
+                        }
+                    }}>
+                        <div className="retour">
+                        Retour
 
-                                        <div className="labels">
-                                            <li>Distortion</li>
-                                            <li>est</li>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="footer_buttons">
-
-
-<div className="btn" onClick={(e) => {
-this._deletePlugin(this.plugin._id)}}> Supprimer
-
-
-</div>
-<div>
-    {
-        this.state.baseUrl ?
-            <WebAudio guiCallback={this._buildModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
-            :
-            <Spinner></Spinner>
-    }
-</div>
-</div>
-                            <div className="description">
-                                <div className="plugin_view_subtitle">
-                                    Description
-                                </div>
-                                <div className="description_body">
-                                    {this.plugin.description}
-                                </div>
-                            </div>
-
-                            {
-                                this.plugin.comments ?
-                                    <CommentList comments={this.plugin.comments}></CommentList>
-                                    : <div></div>
-
-                            }
-                            <PluginCommentForm pluginId={this.plugin._id}></PluginCommentForm>
                         </div>
-                    );
+                    </Link>
+                <div className="card">
+                    <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.plugin._id}/image`} height="20%" width="20%" />
+                    <div className="card_items">
+                        <div className="title">{this.plugin.name}</div>
+
+                        <div className="card_item">
+                            <div className="card_subtitle">
+                                Version :
+                                </div>
+                            <div className="inside">
+                                {this.plugin.version}
+                            </div>
+                        </div>
+                        <div className="card_item">
+                            <div className="card_subtitle">
+                                Catégories :
+                                        </div>
+
+                            <div className="labels">
+                                <li>Distortion</li>
+                                <li>est</li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="footer_buttons">
+
+
+                    <div className="btn" onClick={(e) => {
+                        this._deletePlugin(this.plugin._id)
+                    }}> Supprimer
+                        
+                        
+</div>
+                    <div>
+                        {
+                            this.state.baseUrl ?
+                                <WebAudio guiCallback={this._buildModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
+                                :
+                                <Spinner></Spinner>
+                        }
+                    </div>
+                </div>
+                <div className="description">
+                    <div className="subtitle">
+                        Description
+                                </div>
+                    <div className="description_body">
+                        {this.plugin.description}
+                    </div>
+                </div>
+
+                {
+                    this.plugin.comments ?
+                        <CommentList comments={this.plugin.comments}></CommentList>
+                        : <div></div>
+
+                }
+                <PluginCommentForm pluginId={this.plugin._id}></PluginCommentForm>
+            </div>
+        );
     }
 
     _buildModal(element) {
@@ -114,6 +126,8 @@ this._deletePlugin(this.plugin._id)}}> Supprimer
         })
 
     }
+    _back(){} 
+    
 }
 
 export default PluginView;

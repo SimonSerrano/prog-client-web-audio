@@ -24,7 +24,7 @@ class PluginList extends React.Component {
 
     render() {
         return (
-            <>
+            <div className='wrapper'>
                 {
                     this.state.data ? this.state.data.length ?
                         <div className="flex-container align-start wrap">
@@ -45,7 +45,7 @@ class PluginList extends React.Component {
                             </div>
                         </div>
                 }
-            </>
+           </div>
         );
     }
 }

@@ -1,13 +1,42 @@
 .navbar {
     grid-column: 1 / last;
     grid-row: 1 / 2;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
     box-shadow: 0px 6px 3px #e0e0e0;
+    position: fixed;
+    width:100%;
 }
 
 p {
     box-sizing: content-box;
     overflow: hidden;
     width: 100%;
+}
+@media screen and (max-width: 800px) {
+    .navbar_margin{
+        padding:0 20px;
+    }
+  }
+
+@media screen and (min-width: 800px) {
+    .navbar_margin{
+        padding:0 20vw;
+    }
+}
+.app_title{
+    font-size: 1.4em;
+    color:white;
+    font-weight: 700;
+    padding: 6px 15px;
+}
+.logo:hover{
+    cursor:pointer;
+}
+.username{
+    font-size: 1em;
+    color:white;
+    font-weight: 500;
+    padding: 6px 0;
+}
+.username i{
+    color:white;
 }
