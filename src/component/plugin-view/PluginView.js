@@ -45,8 +45,11 @@ class PluginView extends React.Component {
                                         </div>
 
                                         <div className="labels">
-                                            <li>Distortion</li>
-                                            <li>est</li>
+                                        {this.plugin.categories?
+                                            this.plugin.categories.split(",").map((categorie) => {
+                                                return (<li>{categorie}</li>)
+                                            }):""
+                                        }
                                         </div>
                                     </div>
                                 </div>
