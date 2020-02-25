@@ -11,7 +11,6 @@ class Navbar extends React.Component {
         this.name = Cookies.get('username');
     }
 
-
     render() {
         return (
             <div className="navbar primary dark ">

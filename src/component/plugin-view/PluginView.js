@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 class PluginView extends React.Component {
 
     plugin;
+    componentRef;
 
     constructor(props) {
         super(props);
@@ -21,6 +22,7 @@ class PluginView extends React.Component {
         };
         this.plugin = props.location.state.plugin;
         this._getPluginUrl();
+        this.componentRef = React.createRef();
     }
 
     render() {
@@ -36,25 +38,32 @@ class PluginView extends React.Component {
 
                         </div>
                 </Link>
+                <div ref={this.componentRef} className="close">
+                    <div className={"modal-content"}>
+                    <div className="btn" onClick={(e)=>this._closeModal()}>
+                        fermer
+                    </div>
+                    </div>
+                </div>
                 <div className="card">
                     <img alt="Plugin" src={`${API + PLUGINS_ROUTE}/${this.plugin._id}/image`} height="20%" width="20%" />
                     <div className="card_items">
                         <div className="title">{this.plugin.name}</div>
-                            <div className="card_subtitle">
-                                Version :
+                        <div className="card_subtitle">
+                            Version :
                             </div>
                         <div className="inside">
                             {this.plugin.version}
                         </div>
-                            <div className="card_subtitle">
-                                Catégories :
+                        <div className="card_subtitle">
+                            Catégories :
                          </div>
-                            <div className="labels">
-                                {this.plugin.categories ?
-                                    this.plugin.categories.split(",").map((categorie) => {
-                                        return (<li>{categorie}</li>)
-                                    }) : ""
-                                }
+                        <div className="labels">
+                            {this.plugin.categories ?
+                                this.plugin.categories.split(",").map((categorie) => {
+                                    return (<li>{categorie}</li>)
+                                }) : ""
+                            }
                         </div>
                     </div>
 
@@ -70,7 +79,7 @@ class PluginView extends React.Component {
                     <div>
                         {
                             this.state.baseUrl ?
-                                <WebAudio guiCallback={this._buildModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
+                                <WebAudio guiCallback={this._openModal.bind(this)} baseUrl={this.state.baseUrl}></WebAudio>
                                 :
                                 <Spinner></Spinner>
                         }
@@ -96,9 +105,17 @@ class PluginView extends React.Component {
         );
     }
 
-    _buildModal(element) {
-        document.querySelectorAll('.description')[0].appendChild(element);
+    _openModal(element) {
+        this.componentRef.current.className = "open";
+        //document.querySelectorAll('.close')[0].className="open";
+        document.querySelectorAll('.modal-content')[0].appendChild(element);
     }
+    _closeModal() {
+        this.componentRef.current.className = "close";
+        const element=this.componentRef.current.querySelector('.modal-content');
+        element.removeChild(element.lastChild);
+    }
+
 
     async _getPluginUrl() {
         const service = new PluginsService();

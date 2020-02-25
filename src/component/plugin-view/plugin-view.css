@@ -103,3 +103,38 @@ justify-content: flex-end;}
     text-decoration: none;
 
 }
+
+.open{
+position:absolute;
+z-index:4;
+width:100%;
+height:100%;
+top:0;
+left:0;
+background-color: rgba(0,0,0,0.5);
+display: flex;
+justify-content: center;
+}
+
+.open > .modal-content {
+    display: block;
+}
+
+.close > .modal-content {
+    display: none;
+}
+
+
+
+.modal-content{
+    margin-top:20vh;
+    padding:40px;
+    background-color: white;
+    height:fit-content; 
+}
+.close{
+display:none;
+    }
+.modal-content > .btn{
+    margin-bottom: 20px;
+}
